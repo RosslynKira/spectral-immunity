@@ -370,7 +370,7 @@ AI科学家系统的可靠性评估仍依赖像素级RMSE。其隐含假设—�
     {\scriptsize \textbf{表4：}Kruskal-Wallis：$H=5.775$，$p=0.056$。Bonferroni校正后（$\alpha=0.0167$）\textbf{均不显著}。事后功效$\approx0.35$；\textbf{边际方向性证据}；需$n\geq60$/组。消融（仅10 Hz vs.\ 10+60 Hz）：NPRF $1.167\to2.479$，2.12倍（$p=0.000042$，Cohen's $d=1.558$）。信号型盲区是主导因果因素。}
 \end{center}
 
-\textbf{核心发现：}\textbf{第一，}模型学会了去噪（$\pxrmse$下降约500倍）。\textbf{第二，}训练噪声效应在校正后\textit{不}具有统计显著性。\textbf{第三，}所有模型NPRF$>1.0$——双重盲区：噪声型（蓝训练：2.590 vs.\ 基线0.195）和信号型（60 Hz位于共振带内）。MSE无法赋予频谱免疫能力；必须外部注入。
+\textbf{核心发现：}\textbf{第一，}模型学会了去噪（$\pxrmse$下降约500倍）。\textbf{第二，}训练噪声效应在校正后\textit{不}具有统计显著性。\textbf{第三，}所有模型NPRF$>1.0$——双重盲区：噪声型（蓝训练：2.590 vs.\ 基线0.195）和信号型（60 Hz位于共振带内）。仅靠MSE训练本身不能带来频谱免疫能力；必须通过外部手段引入。
 
 \begin{figure}[htbp]
     \centering
@@ -514,29 +514,29 @@ AI科学家系统的可靠性评估仍依赖像素级RMSE。其隐含假设—�
 \begin{thebibliography}{99}
 
 \bibitem{abramson2024}
-J.~Abramson, et al.
+J.~Abramson, J.~Adler, J.~Dunger, et al.
 \newblock Accurate structure prediction of biomolecular interactions with AlphaFold 3.
 \newblock \textit{Nature}, 630:493--500, 2024.
 
 \bibitem{merchant2023}
-A.~Merchant, et al.
+A.~Merchant, S.~Batzner, S.~S.~Schoenholz, et al.
 \newblock Scaling deep learning for materials discovery.
 \newblock \textit{Nature}, 624:80--85, 2023.
 
 \bibitem{lam2023}
-R.~Lam, et al.
+R.~Lam, A.~Sanchez-Gonzalez, M.~Willson, et al.
 \newblock Learning skillful medium-range global weather forecasting.
 \newblock \textit{Science}, 382:1416--1421, 2023.
 
 \bibitem{savitzky1964}
 A.~Savitzky and M.~J.~E.~Golay.
-\newblock Smoothing and differentiation of data.
+\newblock Smoothing and differentiation of data by simplified least squares procedures.
 \newblock \textit{Analytical Chemistry}, 36(8):1627--1639, 1964.
 
 \bibitem{welch1967}
 P.~D.~Welch.
-\newblock The use of fast Fourier transform for estimation of power spectra.
-\newblock \textit{IEEE Trans. Audio Electroacoust.}, 15(2):70--73, 1967.
+\newblock The use of fast Fourier transform for the estimation of power spectra: a method based on time averaging over short, modified periodograms.
+\newblock \textit{IEEE Transactions on Audio and Electroacoustics}, 15(2):70--73, 1967.
 
 \bibitem{brillinger2001}
 D.~R.~Brillinger.
@@ -544,48 +544,48 @@ D.~R.~Brillinger.
 
 \bibitem{kasdin1995}
 N.~J.~Kasdin.
-\newblock Discrete simulation of colored noise and $1/f^\alpha$ power law noise generation.
-\newblock \textit{Proc. IEEE}, 83(5):802--807, 1995.
+\newblock Discrete simulation of colored noise and stochastic processes and $1/f^\alpha$ power law noise generation.
+\newblock \textit{Proceedings of the IEEE}, 83(5):802--827, 1995.
 
 \bibitem{burger2020}
-B.~Burger, et al.
+B.~Burger, P.~M.~Maffettone, V.~V.~Gusev, et al.
 \newblock A mobile robotic chemist.
 \newblock \textit{Nature}, 583:237--241, 2020.
 
 \bibitem{xu2019}
 Z.-Q.~J.~Xu, Y.~Zhang, and Y.~Xiao.
 \newblock Training behavior of deep neural network in frequency domain.
-\newblock \textit{NeurIPS}, 2019.
+\newblock In \textit{Neural Information Processing, ICONIP 2019}, LNCS 11953, pp.~264--274, Springer, 2019.
 
 \bibitem{ardila2019}
-D.~Ardila, et al.
+D.~Ardila, A.~P.~Kiraly, S.~Bharadwaj, et al.
 \newblock End-to-end lung cancer screening with three-dimensional deep learning on low-dose chest computed tomography.
 \newblock \textit{Nature Medicine}, 25(6):954--961, 2019.
 
 \bibitem{rahaman2019}
-N.~Rahaman, et al.
+N.~Rahaman, A.~Baratin, D.~Arpit, et al.
 \newblock On the spectral bias of neural networks.
-\newblock \textit{ICML}, 2019.
+\newblock \textit{Proceedings of the 36th International Conference on Machine Learning}, PMLR 97:5301--5310, 2019.
 
 \bibitem{kendall2017}
 A.~Kendall and Y.~Gal.
 \newblock What uncertainties do we need in Bayesian deep learning for computer vision?
-\newblock \textit{NeurIPS}, 2017.
+\newblock \textit{Advances in Neural Information Processing Systems 30}, 2017.
 
 \bibitem{lakshminarayanan2017}
 B.~Lakshminarayanan, A.~Pritzel, and C.~Blundell.
 \newblock Simple and scalable predictive uncertainty estimation using deep ensembles.
-\newblock \textit{NeurIPS}, 2017.
+\newblock \textit{Advances in Neural Information Processing Systems 30}, 2017.
 
 \bibitem{tancik2020}
-M.~Tancik, et al.
+M.~Tancik, P.~P.~Srinivasan, B.~Mildenhall, et al.
 \newblock Fourier features let networks learn high frequency functions in low dimensional domains.
-\newblock \textit{NeurIPS}, 2020.
+\newblock \textit{Advances in Neural Information Processing Systems 33}, 2020.
 
 \bibitem{ronen2019}
-B.~Ronen, D.~Jacobs, Y.~Kasten, and S.~Kritchman.
+R.~Basri, D.~Jacobs, Y.~Kasten, and S.~Kritchman.
 \newblock The convergence rate of neural networks for learned functions of different frequencies.
-\newblock \textit{NeurIPS}, 2019.
+\newblock \textit{Advances in Neural Information Processing Systems 32}, pp.~4761--4771, 2019.
 
 \end{thebibliography}
 \endgroup

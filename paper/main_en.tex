@@ -192,7 +192,7 @@ where $C(\theta) = \frac{1}{|a_{\text{ref}}|} \sqrt{\frac{\int_{\Beff} \hsysf \,
 \end{theorem}
 
 \begin{remark}[Intuitive interpretation]
-Theorem 1 says: \textbf{if the noise spectrum is approximately flat across the operator's effective passband, pixel RMSE is a good proxy for physical error.} Red noise (low-frequency) makes RMSE \textit{overestimate} risk; resonant-band noise makes RMSE \textit{underestimate} risk. $\theta$ typically $10^{-3}$--$10^{-6}$. For non-linear systems, first-order Taylor local linearisation applies; the theorem provides intuition rather than a tight bound. For practical purposes, NPRF (\S 2.2) serves as the operational metric without requiring threshold selection.
+Theorem 1 says: \textbf{if the noise spectrum is approximately flat across the operator's effective passband, pixel RMSE is a good proxy for physical error.} Red noise (low-frequency) makes RMSE \textit{overestimate} risk; resonant-band noise makes RMSE \textit{underestimate} risk. $\theta$ typically $10^{-3}$--$10^{-6}$. For non-linear systems, first-order Taylor local linearization applies; the theorem provides intuition rather than a tight bound. For practical purposes, NPRF (\S 2.2) serves as the operational metric without requiring threshold selection.
 \end{remark}
 
 \subsection{Normalized Physical Risk Factor (NPRF)}
@@ -256,7 +256,7 @@ where $\Hsqmean = \frac{1}{f_s/2}\int_{0}^{f_s/2} \hsysf \, df$ is the arithmeti
 
 \subsection{Experiment 1: Spectral-Adversarial Examples}
 
-Fix $\pxrmse = 0.001$. Generate power-law noise\cite{kasdin1995} with $\alpha=\{-2, 0, +2\}$, 100 realisations per group.
+Fix $\pxrmse = 0.001$. Generate power-law noise\cite{kasdin1995} with $\alpha=\{-2, 0, +2\}$, 100 realizations per group.
 
 \begin{center}
     \scriptsize\setlength{\tabcolsep}{2.5pt}
@@ -351,7 +351,7 @@ Two denoising models with \textit{identical} pixel RMSE ($\sigma_{\text{px}} = 0
     {\scriptsize \textbf{Table 4:} Kruskal-Wallis: $H=5.775$, $p=0.056$. After Bonferroni correction ($\alpha=0.0167$) \textbf{none significant}. Post-hoc power $\approx0.35$; \textbf{marginal directional evidence}; $n\geq60$/group needed. Ablation (10 Hz only vs.\ 10+60 Hz): NPRF $1.167\to2.479$, 2.12-fold ($p=0.000042$, Cohen's $d=1.558$). Signal-type blind-spot is dominant causal driver.}
 \end{center}
 
-\textbf{Key findings:} \textbf{First,} models learn denoising ($\pxrmse$ falls $\sim500$-fold). \textbf{Second,} training-noise effects \textit{not} statistically significant after correction. \textbf{Third,} all models NPRF$>1.0$---dual blind-spots: noise-type (blue-trained: 2.590 vs.\ baseline 0.195) and signal-type (60 Hz within resonant band). MSE cannot imbue spectral immunity; it must be injected externally.
+\textbf{Key findings:} \textbf{First,} models learn denoising ($\pxrmse$ falls $\sim500$-fold). \textbf{Second,} training-noise effects \textit{not} statistically significant after correction. \textbf{Third,} all models have NPRF $>1.0$---dual blind-spots: noise-type (blue-trained: 2.590 vs.\ baseline 0.195) and signal-type (60 Hz within resonant band). MSE training alone does not confer spectral immunity; it must be introduced externally.
 
 \begin{figure}[htbp]
     \centering
@@ -401,7 +401,7 @@ Frequency bands around resonant peak $f_{\text{peak}}=51$ Hz: sub-resonant (0--4
     {\scriptsize \textbf{Table 6:} Efficiency ratio = contribution (\%) / bandwidth fraction (\%), measuring risk concentration per unit bandwidth. Within only 4.0\% fractional bandwidth, the resonant band contributes 42.8\% of integrated physical error for white noise (efficiency ratio 10.70). Blue-noise energy concentrates in suppression band (93.3\%).}
 \end{center}
 
-\textbf{Key finding:} Resonant-band risk-efficiency is 10.70$\times$ the full-band average, confirming that spectral-immunity strategies should prioritise resonant-band mitigation.
+\textbf{Key finding:} Resonant-band risk-efficiency is 10.70$\times$ the full-band average, confirming that spectral-immunity strategies should prioritize resonant-band mitigation.
 
 \subsection{Experiment 5: Engineering Validation}
 
@@ -476,7 +476,7 @@ Core contributions: (1) spectral sufficiency theorem (Thm.\ \ref{thm:sufficiency
 
 \begingroup
 \scriptsize
-\textbf{Boundary statement:} Proves: (1) pixel-RMSE structural failure under operator resonance; (2) NPRF feasibility; (3) MSE spectral blind-spots; (4) post-hoc reshaping efficacy in PGTS. Does \textbf{not} prove: (a) NPRF validity for arbitrary non-linear operators; (b) filter generalisability beyond PGTS; (c) training-noise-type significance ($p=0.056$, power$\approx0.35$).
+\textbf{Boundary statement:} Proves: (1) pixel-RMSE structural failure under operator resonance; (2) NPRF feasibility; (3) MSE spectral blind-spots; (4) post-hoc reshaping efficacy in PGTS. Does \textbf{not} prove: (a) NPRF validity for arbitrary non-linear operators; (b) filter generalizability beyond PGTS; (c) training-noise-type significance ($p=0.056$, power$\approx0.35$).
 \endgroup
 
 \vspace{0.5pt}
@@ -495,29 +495,29 @@ Every AI Scientist that derives physical quantities from observational data is, 
 \begin{thebibliography}{99}
 
 \bibitem{abramson2024}
-J.~Abramson, et al.
+J.~Abramson, J.~Adler, J.~Dunger, et al.
 \newblock Accurate structure prediction of biomolecular interactions with AlphaFold 3.
 \newblock \textit{Nature}, 630:493--500, 2024.
 
 \bibitem{merchant2023}
-A.~Merchant, et al.
+A.~Merchant, S.~Batzner, S.~S.~Schoenholz, et al.
 \newblock Scaling deep learning for materials discovery.
 \newblock \textit{Nature}, 624:80--85, 2023.
 
 \bibitem{lam2023}
-R.~Lam, et al.
+R.~Lam, A.~Sanchez-Gonzalez, M.~Willson, et al.
 \newblock Learning skillful medium-range global weather forecasting.
 \newblock \textit{Science}, 382:1416--1421, 2023.
 
 \bibitem{savitzky1964}
 A.~Savitzky and M.~J.~E.~Golay.
-\newblock Smoothing and differentiation of data.
+\newblock Smoothing and differentiation of data by simplified least squares procedures.
 \newblock \textit{Analytical Chemistry}, 36(8):1627--1639, 1964.
 
 \bibitem{welch1967}
 P.~D.~Welch.
-\newblock The use of fast Fourier transform for estimation of power spectra.
-\newblock \textit{IEEE Trans. Audio Electroacoust.}, 15(2):70--73, 1967.
+\newblock The use of fast Fourier transform for the estimation of power spectra: a method based on time averaging over short, modified periodograms.
+\newblock \textit{IEEE Transactions on Audio and Electroacoustics}, 15(2):70--73, 1967.
 
 \bibitem{brillinger2001}
 D.~R.~Brillinger.
@@ -525,50 +525,51 @@ D.~R.~Brillinger.
 
 \bibitem{kasdin1995}
 N.~J.~Kasdin.
-\newblock Discrete simulation of colored noise and $1/f^\alpha$ power law noise generation.
-\newblock \textit{Proc. IEEE}, 83(5):802--807, 1995.
+\newblock Discrete simulation of colored noise and stochastic processes and $1/f^\alpha$ power law noise generation.
+\newblock \textit{Proceedings of the IEEE}, 83(5):802--827, 1995.
 
 \bibitem{burger2020}
-B.~Burger, et al.
+B.~Burger, P.~M.~Maffettone, V.~V.~Gusev, et al.
 \newblock A mobile robotic chemist.
 \newblock \textit{Nature}, 583:237--241, 2020.
 
 \bibitem{xu2019}
 Z.-Q.~J.~Xu, Y.~Zhang, and Y.~Xiao.
 \newblock Training behavior of deep neural network in frequency domain.
-\newblock \textit{NeurIPS}, 2019.
+\newblock In \textit{Neural Information Processing, ICONIP 2019}, LNCS 11953, pp.~264--274, Springer, 2019.
 
 \bibitem{ardila2019}
-D.~Ardila, et al.
+D.~Ardila, A.~P.~Kiraly, S.~Bharadwaj, et al.
 \newblock End-to-end lung cancer screening with three-dimensional deep learning on low-dose chest computed tomography.
 \newblock \textit{Nature Medicine}, 25(6):954--961, 2019.
 
 \bibitem{rahaman2019}
-N.~Rahaman, et al.
+N.~Rahaman, A.~Baratin, D.~Arpit, et al.
 \newblock On the spectral bias of neural networks.
-\newblock \textit{ICML}, 2019.
+\newblock \textit{Proceedings of the 36th International Conference on Machine Learning}, PMLR 97:5301--5310, 2019.
 
 \bibitem{kendall2017}
 A.~Kendall and Y.~Gal.
 \newblock What uncertainties do we need in Bayesian deep learning for computer vision?
-\newblock \textit{NeurIPS}, 2017.
+\newblock \textit{Advances in Neural Information Processing Systems 30}, 2017.
 
 \bibitem{lakshminarayanan2017}
 B.~Lakshminarayanan, A.~Pritzel, and C.~Blundell.
 \newblock Simple and scalable predictive uncertainty estimation using deep ensembles.
-\newblock \textit{NeurIPS}, 2017.
+\newblock \textit{Advances in Neural Information Processing Systems 30}, 2017.
 
 \bibitem{tancik2020}
-M.~Tancik, et al.
+M.~Tancik, P.~P.~Srinivasan, B.~Mildenhall, et al.
 \newblock Fourier features let networks learn high frequency functions in low dimensional domains.
-\newblock \textit{NeurIPS}, 2020.
+\newblock \textit{Advances in Neural Information Processing Systems 33}, 2020.
 
 \bibitem{ronen2019}
-B.~Ronen, D.~Jacobs, Y.~Kasten, and S.~Kritchman.
+R.~Basri, D.~Jacobs, Y.~Kasten, and S.~Kritchman.
 \newblock The convergence rate of neural networks for learned functions of different frequencies.
-\newblock \textit{NeurIPS}, 2019.
+\newblock \textit{Advances in Neural Information Processing Systems 32}, pp.~4761--4771, 2019.
 
 \end{thebibliography}
+
 \endgroup
 
 \end{document}
