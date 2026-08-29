@@ -18,8 +18,8 @@ AI-Scientist 系统在物理量推导过程中存在一个被忽视的可靠性�
 ## 环境要求
 
 ```bash
-Python >= 3.8
-numpy >= 1.20
+Python >= 3.9
+numpy >= 2.0
 scipy >= 1.7
 matplotlib >= 3.4
-torch >= 1.9  # 仅实验三需要
+torch >= 1.9  # 仅实验三和实验3b需要
