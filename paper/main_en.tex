@@ -155,7 +155,7 @@ Spectral bias is well-documented: deep networks fit low-frequency components fir
 
 \subsection{Physical-Ground-Truth Sandbox (PGTS)}
 
-We construct a \textbf{Physical-Ground-Truth Sandbox (PGTS)}: constant-acceleration trajectories ($a_{\text{ref}}=9.8$ m/s$^2$), with accelerations derived by a 21-point third-order Savitzky-Golay filter\cite{savitzky1964}. The SG filter's combined frequency-response squared magnitude $\hsysf$ achieves a dynamic range of $1.15\times10^{28}$ with a resonant peak at $f_{\text{peak}}=51$ Hz; the theoretical noise-amplification factor is $\sqrt{\sum_{i=1}^{21} c_i^2}=13353.3$. A tracking system with pixel residual RMSE $10^{-3}$ thus yields derived acceleration RMSE up to $13.35$ m/s$^2$, corresponding to 136.3\% relative physical error. The measured 153.5\% for white noise reflects SG boundary effects at finite signal length.
+We construct a \textbf{Physical-Ground-Truth Sandbox (PGTS)}: constant-acceleration trajectories ($a_{\text{ref}}=9.8$ m/s$^2$), with accelerations derived by a 21-point third-order Savitzky-Golay filter\cite{savitzky1964}. The SG filter's combined frequency-response squared magnitude $\hsysf$ exhibits a resonant peak at $f_{\text{peak}}=51$ Hz; the theoretical noise-amplification factor is $\sqrt{\sum_{i=1}^{21} c_i^2}=13353.3$. A tracking system with pixel residual RMSE $10^{-3}$ thus yields derived acceleration RMSE up to $13.35$ m/s$^2$, corresponding to 136.3\% relative physical error. The measured 153.5\% for white noise reflects SG boundary effects at finite signal length.
 
 \subsection{Contributions}
 
@@ -192,7 +192,7 @@ where $C(\theta) = \frac{1}{|a_{\text{ref}}|} \sqrt{\frac{\int_{\Beff} \hsysf \,
 \end{theorem}
 
 \begin{remark}[Intuitive interpretation]
-Theorem 1 says: \textbf{if the noise spectrum is approximately flat across the operator's effective passband, pixel RMSE is a good proxy for physical error.} Red noise (low-frequency) makes RMSE \textit{overestimate} risk; resonant-band noise makes RMSE \textit{underestimate} risk. $\theta$ typically $10^{-3}$--$10^{-6}$. For non-linear systems, first-order Taylor local linearization applies; the theorem provides intuition rather than a tight bound. For practical purposes, NPRF (\S 2.2) serves as the operational metric without requiring threshold selection.
+Theorem~\ref{thm:sufficiency} says: \textbf{if the noise spectrum is approximately flat across the operator's effective passband, pixel RMSE is a good proxy for physical error.} Red noise (low-frequency) makes RMSE \textit{overestimate} risk; resonant-band noise makes RMSE \textit{underestimate} risk. $\theta$ typically $10^{-3}$--$10^{-6}$. For non-linear systems, first-order Taylor local linearization applies; the theorem provides intuition rather than a tight bound. For practical purposes, NPRF (\S 2.2) serves as the operational metric without requiring threshold selection.
 \end{remark}
 
 \subsection{Normalized Physical Risk Factor (NPRF)}
@@ -202,7 +202,7 @@ Theorem 1 says: \textbf{if the noise spectrum is approximately flat across the o
 Subject to $\int \snf \, df = \pxrmse^2$ and $\snf \geq 0$, a tight upper bound for physical-quantity variance is $\pxrmse^2 \cdot \max_f \hsysf$. Equality iff $\snf$ is a Dirac-$\delta$ at $\arg\max_f \hsysf$.
 \end{theorem}
 
-\textbf{From passband to full-band normalization.} Unlike Theorem 1's passband-restricted analysis, NPRF uses the full-band arithmetic mean of $\hsysf$ as the normalization baseline. This choice is analytically tractable (no threshold $\theta$ to select), directly interpretable (white noise $\Rightarrow$ NPRF$=1$), and robust to operator types whose effective passband may be multimodal or ill-defined.
+\textbf{From passband to full-band normalization.} Unlike Theorem~\ref{thm:sufficiency}'s passband-restricted analysis, NPRF uses the full-band arithmetic mean of $\hsysf$ as the normalization baseline. This choice is analytically tractable (no threshold $\theta$ to select), directly interpretable (white noise $\Rightarrow$ NPRF$=1$), and robust to operator types whose effective passband may be multimodal or ill-defined.
 
 Define the \textbf{Normalized Physical Risk Factor (NPRF)}:
 \begin{equation}

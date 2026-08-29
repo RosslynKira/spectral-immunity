@@ -174,7 +174,7 @@ AI科学家系统的可靠性评估仍依赖像素级RMSE。其隐含假设—�
 
 \subsection{物理真值沙盒（PGTS）}
 
-我们构建了一个\textbf{物理真值沙盒（PGTS）}：匀加速轨迹（$a_{\text{ref}}=9.8$ m/s$^2$），加速度由21点三阶Savitzky-Golay滤波器\cite{savitzky1964}导出。SG滤波器的联合频响平方幅值$\hsysf$动态范围达$1.15\times10^{28}$，共振峰位于$f_{\text{peak}}=51$ Hz；理论噪声放大因子为$\sqrt{\sum_{i=1}^{21} c_i^2}=13353.3$。像素残差RMSE为$10^{-3}$的追踪系统因此产生高达$13.35$ m/s$^2$的导出加速度RMSE，对应136.3\%的相对物理误差。白噪声实测153.5\%反映了有限信号长度下的SG边界效应。
+我们构建了一个\textbf{物理真值沙盒（PGTS）}：匀加速轨迹（$a_{\text{ref}}=9.8$ m/s$^2$），加速度由21点三阶Savitzky-Golay滤波器\cite{savitzky1964}导出。SG滤波器的联合频响平方幅值$\hsysf$的共振峰位于$f_{\text{peak}}=51$ Hz；理论噪声放大因子为$\sqrt{\sum_{i=1}^{21} c_i^2}=13353.3$。像素残差RMSE为$10^{-3}$的追踪系统因此产生高达$13.35$ m/s$^2$的导出加速度RMSE，对应136.3\%的相对物理误差。白噪声实测153.5\%反映了有限信号长度下的SG边界效应。
 
 \subsection{贡献}
 
@@ -211,7 +211,7 @@ AI科学家系统的可靠性评估仍依赖像素级RMSE。其隐含假设—�
 \end{theorem}
 
 \begin{remark}[直观解释]
-定理1表明：\textbf{若噪声频谱在算子有效通带内近似平坦，则像素RMSE是物理误差的良好代理。}红噪声（低频集中）使RMSE\textit{高估}风险；共振带噪声使RMSE\textit{低估}风险。$\theta$典型取$10^{-3}$--$10^{-6}$。对于非线性系统，一阶Taylor局部线性化适用；该定理提供直觉而非紧界。实际应用中，NPRF（\S 2.2）作为操作指标，无需选择阈值。
+定理~\ref{thm:sufficiency}表明：\textbf{若噪声频谱在算子有效通带内近似平坦，则像素RMSE是物理误差的良好代理。}红噪声（低频集中）使RMSE\textit{高估}风险；共振带噪声使RMSE\textit{低估}风险。$\theta$典型取$10^{-3}$--$10^{-6}$。对于非线性系统，一阶Taylor局部线性化适用；该定理提供直觉而非紧界。实际应用中，NPRF（\S 2.2）作为操作指标，无需选择阈值。
 \end{remark}
 
 \subsection{归一化物理风险因子（NPRF）}
@@ -221,7 +221,7 @@ AI科学家系统的可靠性评估仍依赖像素级RMSE。其隐含假设—�
 在约束$\int \snf \, df = \pxrmse^2$且$\snf \geq 0$下，物理量方差的紧上界为$\pxrmse^2 \cdot \max_f \hsysf$。等号成立当且仅当$\snf$为集中于$\arg\max_f \hsysf$的Dirac-$\delta$分布。
 \end{theorem}
 
-\textbf{从通带到全频带归一化。}与定理1的通带限制分析不同，NPRF使用$\hsysf$的全频带算术均值作为归一化基线。该选择解析可处理（无需选择阈值$\theta$）、直接可解释（白噪声$\Rightarrow$NPRF$=1$），且对有效通带可能多模态或定义不清的算子类型具有鲁棒性。
+\textbf{从通带到全频带归一化。}与定理~\ref{thm:sufficiency}的通带限制分析不同，NPRF使用$\hsysf$的全频带算术均值作为归一化基线。该选择解析可处理（无需选择阈值$\theta$）、直接可解释（白噪声$\Rightarrow$NPRF$=1$），且对有效通带可能多模态或定义不清的算子类型具有鲁棒性。
 
 定义\textbf{归一化物理风险因子（NPRF）}：
 \begin{equation}
