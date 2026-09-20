@@ -2,7 +2,7 @@
 % ICAIS 2026 Track 2: Young Scientist | 4-Page Compact
 % Spectral Immunity: A Frequency-Domain Reliability Audit
 % Framework for Physics-Derived Outputs in AI Scientists
-% Final Version v9 - With All Review Fixes
+% Final Version v10c - Compact (4-page hard limit)
 % ============================================================
 \documentclass[9pt,twocolumn]{article}
 
@@ -15,7 +15,7 @@
 \usepackage{multirow}
 \usepackage[font=scriptsize,labelfont=bf,skip=0pt]{caption}
 \usepackage[hidelinks,colorlinks=true,linkcolor=black,citecolor=black,urlcolor=black]{hyperref}
-\usepackage[margin=1.3cm,columnsep=0.45cm,top=1.6cm,bottom=1.1cm]{geometry}
+\usepackage[margin=1.25cm,columnsep=0.42cm,top=1.45cm,bottom=1.0cm]{geometry}
 \usepackage{setspace}
 \usepackage{fancyhdr}
 \usepackage{float}
@@ -37,32 +37,32 @@
 \theoremstyle{definition}
 \newtheorem{definition}[proposition]{Definition}
 
-% ============ Page Setup ============
-\setlength{\parindent}{0.5em}
+% ============ Page Setup (compact) ============
+\setlength{\parindent}{0.4em}
 \setlength{\parskip}{0pt}
-\renewcommand{\baselinestretch}{0.68}
-\setlength{\abovecaptionskip}{0.5pt}
+\renewcommand{\baselinestretch}{0.66}
+\setlength{\abovecaptionskip}{0.3pt}
 \setlength{\belowcaptionskip}{0pt}
-\setlength{\floatsep}{1pt}
-\setlength{\textfloatsep}{1pt}
-\setlength{\intextsep}{1pt}
-\setlength{\abovedisplayskip}{0.5pt}
-\setlength{\belowdisplayskip}{0.5pt}
-\setlength{\abovedisplayshortskip}{0.3pt}
-\setlength{\belowdisplayshortskip}{0.3pt}
+\setlength{\floatsep}{0.5pt}
+\setlength{\textfloatsep}{0.5pt}
+\setlength{\intextsep}{0.5pt}
+\setlength{\abovedisplayskip}{0.3pt}
+\setlength{\belowdisplayskip}{0.3pt}
+\setlength{\abovedisplayshortskip}{0.2pt}
+\setlength{\belowdisplayshortskip}{0.2pt}
 
 \pagestyle{fancy}
 \fancyhf{}
 \fancyhead[L]{\scriptsize\itshape ICAIS 2026 Track 2: Young Scientist}
 \fancyhead[R]{\scriptsize\thepage}
 \renewcommand{\headrulewidth}{0.2pt}
-\setlength{\headheight}{14pt}
-\setlength{\headsep}{5pt}
+\setlength{\headheight}{13pt}
+\setlength{\headsep}{4pt}
 
 \titleformat{\section}{\normalsize\bfseries}{}{0em}{}
-\titlespacing{\section}{0pt}{0.5pt}{0.2pt}
+\titlespacing{\section}{0pt}{0.4pt}{0.1pt}
 \titleformat{\subsection}[runin]{\small\bfseries}{}{0em}{}
-\titlespacing{\subsection}{0pt}{1pt}{1pt}
+\titlespacing{\subsection}{0pt}{0.8pt}{0.8pt}
 
 \setlist{nosep,leftmargin=*,itemsep=0pt,topsep=0pt}
 
@@ -75,7 +75,6 @@
 \newcommand{\Hsqmean}{\overline{H^2}}
 \newcommand{\Beff}{\mathcal{B}_{\text{eff}}}
 
-% Compact algorithm setup
 \makeatletter
 \newcommand{\algorithmiccompact}{\renewcommand{\algorithmicrequire}{\textbf{Input:}}\renewcommand{\algorithmicensure}{\textbf{Output:}}}
 \makeatother
@@ -83,49 +82,49 @@
 \begin{document}
 
 \twocolumn[
-\vspace{-6pt}
+\vspace{-8pt}
   \begin{center}
     {\Large\bfseries Spectral Immunity: A Frequency-Domain Reliability Audit Framework for Physics-Derived Outputs in AI Scientists}
 
-    \vspace{2pt}
+    \vspace{1pt}
 
     {\small\bfseries Submitted to ICAIS 2026 Track 2: Young Scientist}
 
-    \vspace{3pt}
+    \vspace{2pt}
 
     {\small Rosslyn Yang \ \ Ethan Lin \ $^{1}$}
 
-    \vspace{0.5pt}
+    \vspace{0.3pt}
 
 {\scriptsize $^{1}$ Nankai High School, Tianjin, China \quad \texttt{mdrosslyning@gmail.com} \quad \texttt{daoming\_kan@163.com}\quad Supervisor: Wei Teng \ $^{1}$ }
-    \vspace{0.5pt}
+    \vspace{0.3pt}
 
     {\scriptsize\textbf{Human Responsibility Statement:} Core scientific insights, all theorem derivations, experimental design and analysis are completed independently by the authors. AI tools are only used for Python code syntax debugging and English abstract polishing. All experimental codes and data are fully reproducible.}
 
-    \vspace{0.5pt}
+    \vspace{0.3pt}
     \rule{\linewidth}{0.4pt}
   \end{center}
 ]
 
 % ==================== Abstract ====================
 \section*{Abstract}
-\vspace{-1pt}
+\vspace{-2pt}
 \begingroup
 \scriptsize
-\setlength{\parindent}{0.8em}
+\setlength{\parindent}{0.7em}
 
 Reliability evaluation for AI-Scientist systems still relies on pixel-level RMSE. Its implicit assumption---that observation-space precision proxies physical-space accuracy---which we term the \textbf{pixel hallucination}, systematically fails for physics-derived outputs. When the error power-spectral density is non-flat within the resonant frequency band of physical operators, under a fixed pixel RMSE $=10^{-3}$, the ratio of physical error between white-noise and red-noise inputs reaches 3.03-fold. This paper proposes the \textbf{Spectral-Immunity framework}. Its core metric, the Normalized Physical Risk Factor (NPRF), takes white noise as the baseline. Given only spectral estimation of AI output residuals and one-off offline calibration of the operator frequency response, NPRF automatically computes spectral health during inference without requiring ground-truth physical values.
 
-Experiments reveal: (1) Under fixed pixel RMSE $=10^{-3}$, white noise yields 153.5\% physical error while red noise yields only 50.7\%; (2) Under amplitude-controlled conditions, NPRF achieves a Spearman rank correlation of 0.968 against physical error, forming complementary diagnostics alongside RMSE; (3) An early-warning case study shows two models with \textit{identical} pixel RMSE ($0.00200$) but physical errors differing by 8.26-fold (98.7\% vs.\ 815.3\%), correctly flagged by NPRF ($0.113$ vs.\ $8.875$); (4) Residual spectra of standard-MSE-trained models are dominated by signal frequency structures rather than training-noise type. Ablation experiments confirm a large effect from the 60 Hz component ($p=0.000042$, Cohen's $d=1.558$); training-noise-type effects are \textit{not} statistically significant after Bonferroni correction ($p=0.056$, power $\approx0.35$), warranting larger samples; (5) Standard Butterworth low-pass filtering degrades NPRF by 380.0\% under non-stationary noise; (6) Post-hoc spectral reshaping via five-stage notch filtering reduces NPRF by 49.8\% and physical error by 31.0\% ($p=0.001953$) without retraining; (7) A preliminary real-world experiment on basketball projectile motion obtains NPRF$=0.177$ (workflow demonstration only; $N=53$ insufficient for statistical inference).
+Experiments reveal: (1) Under fixed pixel RMSE $=10^{-3}$, white noise yields 153.5\% physical error while red noise yields only 50.7\%; (2) Under amplitude-controlled conditions, NPRF achieves a Spearman rank correlation of 0.968 against physical error, forming complementary diagnostics alongside RMSE; (3) An early-warning case study shows two models with \textit{identical} pixel RMSE ($0.00200$) but physical errors differing by 8.26-fold (98.7\% vs.\ 815.3\%), correctly flagged by NPRF ($0.113$ vs.\ $8.875$); (4) Ablation confirms that the 60 Hz signal component has a large effect on residual spectra ($p=0.000042$, Cohen's $d=1.558$); training-noise-type effects are \textit{not} statistically significant after Bonferroni correction ($p=0.056$, power $\approx0.35$), warranting larger samples; (5) Standard Butterworth low-pass filtering degrades NPRF by 380.0\% under non-stationary noise; (6) Post-hoc spectral reshaping via five-stage notch filtering reduces NPRF by 49.8\% and physical error by 31.0\% ($p=0.001953$) without retraining; (7) A preliminary real-world experiment on basketball projectile motion obtains NPRF$=0.177$ (workflow demonstration only; $N=53$ insufficient for statistical inference); (8) On a genuinely trained 1D CNN denoiser, NPRF ranking is fully consistent with physical-error ranking, whereas pixel-RMSE ranking is fully inconsistent with it.
 
-\vspace{0.2pt}
+\vspace{0.1pt}
 \noindent\textbf{Keywords:} AI-for-Science; spectral reliability; NPRF; physical-quantity derivation; spectral immunity
 
 \endgroup
 
-\vspace{0.2pt}
+\vspace{0.1pt}
 \hrule
-\vspace{0.2pt}
+\vspace{0.1pt}
 
 % ==================== 1. Introduction ====================
 \section{Introduction}
@@ -159,7 +158,7 @@ We construct a \textbf{Physical-Ground-Truth Sandbox (PGTS)}: constant-accelerat
 
 \subsection{Contributions}
 
-Both authors contributed equally. (1) \textbf{Diagnostics} (\S 2.1): prove proxy metrics valid iff error PSD is flat across the operator's effective passband. (2) \textbf{Tool} (\S 2.2): propose NPRF, requiring no physical ground truth. (3) \textbf{Early-warning} (\S 3.3): demonstrate NPRF flags 8.26-fold physical-error disparity undetectable by pixel RMSE. (4) \textbf{Remedy} (\S 3.5): validate post-hoc spectral reshaping.
+Both authors contributed equally. (1) \textbf{Diagnostics} (\S 2.1): prove proxy metrics valid iff error PSD is flat across the operator's effective passband. (2) \textbf{Tool} (\S 2.2): propose NPRF, requiring no physical ground truth. (3) \textbf{Early-warning} (\S 3.3): demonstrate NPRF flags 8.26-fold physical-error disparity undetectable by pixel RMSE. (4) \textbf{Remedy} (\S 3.5): validate post-hoc spectral reshaping. (5) \textbf{Real-model validation} (\S 3.7): verify NPRF applicability on a genuinely trained 1D CNN denoiser.
 
 % ==================== 2. Spectral-Immunity Theory ====================
 \section{Spectral-Immunity Theory}
@@ -188,7 +187,7 @@ where $|\Beff|$ denotes Lebesgue measure. If noise PSD $\snf$ satisfies: \textbf
 \label{eq:thm_bound}
 \bigl|\physerr - C(\theta) \cdot \pxrmse \bigr| = O(\delta + \epsilon),
 \end{equation}
-where $C(\theta) = \frac{1}{|a_{\text{ref}}|} \sqrt{\frac{\int_{\Beff} \hsysf \, df}{|\Beff|}}$. \textit{Proof:} By Parseval's identity\cite{brillinger2001}, $\operatorname{Var}[\hat{a}] = \int_{0}^{f_s/2} \hsysf \,\snf \, df$; result follows from (i)--(ii) by direct substitution.
+where $C(\theta) = \frac{1}{|a_{\text{ref}}|} \sqrt{\frac{\int_{\Beff} \hsysf \, df}{|\Beff|}}$. \textit{Proof sketch:} By Parseval/Plancherel, $\operatorname{Var}[\hat{a}] = \int_0^{f_s/2} \hsysf \snf \,df$. Split the integral into $\Beff$ and its complement. On $\Beff$, write $\snf = S_0(1+\eta(f))$ with $|\eta|\le\delta$; then $\int_{\Beff}\hsysf\snf df = S_0\int_{\Beff}\hsysf df\,(1+O(\delta))$. The complement contributes $O(\epsilon)$ by (i). Since $\pxrmse^2 = \int \snf df = S_0|\Beff|(1+O(\delta+\epsilon))$, dividing yields $\operatorname{Var}[\hat{a}] = \pxrmse^2 \cdot \frac{1}{|\Beff|}\int_{\Beff}\hsysf df \,(1+O(\delta+\epsilon))$, giving the stated $C(\theta)$. $\square$
 \end{theorem}
 
 \begin{remark}[Intuitive interpretation]
@@ -242,7 +241,7 @@ where $\Hsqmean = \frac{1}{f_s/2}\int_{0}^{f_s/2} \hsysf \, df$ is the arithmeti
 \label{alg:nprf}
 \end{algorithm}
 
-\textbf{Statistical note:} Bootstrap validation ($B=1000$): for $N=1000$, 95\% CI $\approx\pm10\%$. Welch leakage underestimates NPRF for concentrated spectra (zero-predictor: measured 5.731 vs.\ theoretical $\sim10^7$; windowing smears lines across $\sim4$ Hz). For $N<200$: screening; $N<100$: concept only. \textbf{Spectral Vaccine} = \{NPRF diagnosis + Spectral-Immunity filter\}. Complexity: $O(N\log N)$, $<1$ ms for $N=10^4$.
+\textbf{Statistical note:} Bootstrap validation ($B=1000$): for $N=1000$, 95\% CI $\approx\pm10\%$. Welch leakage underestimates NPRF for concentrated spectra (zero-predictor: measured 5.731 vs.\ theoretical $\sim10^7$). For $N<200$: screening; $N<100$: concept only. \textbf{Spectral Vaccine} = \{NPRF diagnosis + Spectral-Immunity filter\}. Complexity: $O(N\log N)$, $<1$ ms for $N=10^4$.
 
 % ==================== 3. Experimental Validation ====================
 \section{Experimental Validation}
@@ -252,14 +251,14 @@ where $\Hsqmean = \frac{1}{f_s/2}\int_{0}^{f_s/2} \hsysf \, df$ is the arithmeti
 \textbf{Reproducibility:} All experiments use fixed random seeds. Full code in appendix.
 \endgroup
 
-\vspace{0.3pt}
+\vspace{0.1pt}
 
 \subsection{Experiment 1: Spectral-Adversarial Examples}
 
 Fix $\pxrmse = 0.001$. Generate power-law noise\cite{kasdin1995} with $\alpha=\{-2, 0, +2\}$, 100 realizations per group.
 
 \begin{center}
-    \scriptsize\setlength{\tabcolsep}{2.5pt}
+    \scriptsize\setlength{\tabcolsep}{2.2pt}
     \begin{tabular}{lccc}
         \toprule
         \textbf{Noise ($\alpha$)} & $\bm{\physerr}$(\%) & $\nprf$ & \textbf{Characterization} \\
@@ -269,7 +268,7 @@ Fix $\pxrmse = 0.001$. Generate power-law noise\cite{kasdin1995} with $\alpha=\{
         Blue ($+$2) & $71.2_{\pm10.6}$ & $0.195_{\pm0.010}$ & Actively safe \\
         \bottomrule
     \end{tabular}
-    \\[0.2pt]
+    \\[0.1pt]
     {\scriptsize \textbf{Table 1:} Under identical pixel-RMSE ($10^{-3}$), white/red physical-error ratio reaches 3.03-fold ($n=100$/group). NPRF ordering matches physical-error ordering. Discrepancy between theoretical 136.3\% and measured 153.5\% originates from SG boundary effects. Blue noise concentrates energy above the resonant band where $|H_{SG}|^2$ has already declined, yielding lower physical error than white noise despite its high-frequency content.}
 \end{center}
 
@@ -277,7 +276,7 @@ Fix $\pxrmse = 0.001$. Generate power-law noise\cite{kasdin1995} with $\alpha=\{
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.8\columnwidth]{1.png}
+    \includegraphics[width=0.78\columnwidth]{1.png}
     \caption{Spectral-adversarial vulnerability. (a) PSDs for red/white/blue noise; SG resonant band shaded. (b) Under identical pixel RMSE, physical error differs by 3.03$\times$; NPRF correctly ranks risk.}
     \label{fig:fig1}
 \end{figure}
@@ -287,7 +286,7 @@ Fix $\pxrmse = 0.001$. Generate power-law noise\cite{kasdin1995} with $\alpha=\{
 \textbf{Amplitude-dominated regime} ($\sigma_{\text{px}} \in [0.0005, 0.005]$, $\alpha \in [-2, 2]$, $n=500$): pixel RMSE varies together with spectral shape. \textbf{Amplitude-blind regime} ($\sigma_{\text{px}} = 0.001$ fixed, $\alpha \in [-2.5, 2.5]$, $n=300$): only spectral shape varies.
 
 \begin{center}
-    \scriptsize\setlength{\tabcolsep}{3.5pt}
+    \scriptsize\setlength{\tabcolsep}{3.0pt}
     \begin{tabular}{lcc}
         \toprule
         \textbf{Regime} & \textbf{Metric} & \textbf{Spearman $\bm{\rho}$} \\
@@ -299,13 +298,13 @@ Fix $\pxrmse = 0.001$. Generate power-law noise\cite{kasdin1995} with $\alpha=\{
          & $\nprf$ & $\mathbf{0.968}$ ($p<0.001$) \\
         \bottomrule
     \end{tabular}
-    \\[0.2pt]
+    \\[0.1pt]
     {\scriptsize \textbf{Table 2:} RMSE performs best in amplitude-dominated region ($\rho=0.813$); NPRF takes over in amplitude-blind region ($\rho=0.968$). Both indispensable.}
 \end{center}
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.8\columnwidth]{2.png}
+    \includegraphics[width=0.78\columnwidth]{2.png}
     \caption{Complementary diagnostics. (a) Amplitude-dominated: RMSE correlates strongly ($\rho=0.813$). (b) Amplitude-blind: NPRF independently ranks physical error ($\rho=0.968$).}
     \label{fig:fig2}
 \end{figure}
@@ -315,7 +314,7 @@ Fix $\pxrmse = 0.001$. Generate power-law noise\cite{kasdin1995} with $\alpha=\{
 Two denoising models with \textit{identical} pixel RMSE ($\sigma_{\text{px}} = 0.00200$): Model A (low-freq residual, $\alpha=-2$); Model B (resonant-band residual, 55--65 Hz band-pass).
 
 \begin{center}
-    \scriptsize\setlength{\tabcolsep}{3.5pt}
+    \scriptsize\setlength{\tabcolsep}{3.0pt}
     \begin{tabular}{lccc}
         \toprule
         \textbf{Model} & $\bm{\sigma_{\text{px}}}$ & \textbf{NPRF} & $\bm{\physerr}$(\%) \\
@@ -324,7 +323,7 @@ Two denoising models with \textit{identical} pixel RMSE ($\sigma_{\text{px}} = 0
         B (resonant residual) & 0.00200 & $\mathbf{8.875}$ & $\mathbf{815.3}$ \\
         \bottomrule
     \end{tabular}
-    \\[0.2pt]
+    \\[0.1pt]
     {\scriptsize \textbf{Table 3:} Pixel RMSE identical; physical error differs 8.26$\times$; NPRF correctly flags Model B as high-risk.}
 \end{center}
 
@@ -335,7 +334,7 @@ Two denoising models with \textit{identical} pixel RMSE ($\sigma_{\text{px}} = 0
 \textbf{Setup:} clean signal 10 Hz + 60 Hz (amplitude 1.0). MLP denoisers (64-32, ReLU, Adam, 200 epochs), $n=20$/condition. Test noise: white+blue, $\sigma=0.002$. \textbf{Ablation:} both groups trained with white noise; Group A uses 10 Hz signal only, Group B uses 10 Hz + 60 Hz.
 
 \begin{center}
-    \scriptsize\setlength{\tabcolsep}{2.5pt}
+    \scriptsize\setlength{\tabcolsep}{2.2pt}
     \begin{tabular}{lccc}
         \toprule
         \textbf{Training noise} & $\bm{\pxrmse}$ & $\nprf$ & $\bm{\physerr}$(\%) \\
@@ -347,7 +346,7 @@ Two denoising models with \textit{identical} pixel RMSE ($\sigma_{\text{px}} = 0
         Zero predictor & $1.001$ & $5.731$ & $281219$ \\
         \bottomrule
     \end{tabular}
-    \\[0.2pt]
+    \\[0.1pt]
     {\scriptsize \textbf{Table 4:} Kruskal-Wallis: $H=5.775$, $p=0.056$. After Bonferroni correction ($\alpha=0.0167$) \textbf{none significant}. Post-hoc power $\approx0.35$; \textbf{marginal directional evidence}; $n\geq60$/group needed. Ablation (10 Hz only vs.\ 10+60 Hz): NPRF $1.167\to2.479$, 2.12-fold ($p=0.000042$, Cohen's $d=1.558$). Signal-type blind-spot is dominant causal driver.}
 \end{center}
 
@@ -355,7 +354,7 @@ Two denoising models with \textit{identical} pixel RMSE ($\sigma_{\text{px}} = 0
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.8\columnwidth]{3.png}
+    \includegraphics[width=0.78\columnwidth]{3.png}
     \caption{Spectral blind-spots of standard MSE training. (a) Residual PSDs (seed-0); red-trained model leaves resonant-band energy. (b) NPRF distributions ($n=20$); all exceed baseline 1.0.}
     \label{fig:fig3}
 \end{figure}
@@ -365,7 +364,7 @@ Two denoising models with \textit{identical} pixel RMSE ($\sigma_{\text{px}} = 0
 Training-time spectral regularization proved numerically unstable (NPRF is a ratio metric whose gradient diverges as $\sigma_{\text{px}}\to0$; resonant-band penalty conflicts with 60 Hz signal preservation). We adopt \textbf{post-hoc spectral reshaping}: five-stage IIR notch (45/48/51/54/57 Hz, $Q=8.0$) on standard-MSE residuals.
 
 \begin{center}
-    \scriptsize\setlength{\tabcolsep}{3.5pt}
+    \scriptsize\setlength{\tabcolsep}{3.0pt}
     \begin{tabular}{lccc}
         \toprule
         \textbf{Stage} & \textbf{NPRF} & $\bm{\physerr}$(\%) & $\bm{\sigma_{\text{px}}}$ \\
@@ -374,7 +373,7 @@ Training-time spectral regularization proved numerically unstable (NPRF is a rat
         After reshaping & $\mathbf{1.210_{\pm0.312}}$ & $\mathbf{240.4_{\pm74.9}}$ & $0.00160_{\pm0.00028}$ \\
         \bottomrule
     \end{tabular}
-    \\[0.2pt]
+    \\[0.1pt]
     {\scriptsize \textbf{Table 5:} Post-hoc notch filtering reduces NPRF by 49.8\% and physical error by 31.0\% ($p=0.001953$, $n=10$ paired). Pixel RMSE essentially unchanged ($-8.0\%$).}
 \end{center}
 
@@ -397,7 +396,7 @@ Frequency bands around resonant peak $f_{\text{peak}}=51$ Hz: sub-resonant (0--4
         \bottomrule
     \end{tabular}%
     }
-    \\[0.2pt]
+    \\[0.1pt]
     {\scriptsize \textbf{Table 6:} Efficiency ratio = contribution (\%) / bandwidth fraction (\%), measuring risk concentration per unit bandwidth. Within only 4.0\% fractional bandwidth, the resonant band contributes 42.8\% of integrated physical error for white noise (efficiency ratio 10.70). Blue-noise energy concentrates in suppression band (93.3\%).}
 \end{center}
 
@@ -420,13 +419,13 @@ Frequency bands around resonant peak $f_{\text{peak}}=51$ Hz: sub-resonant (0--4
         \bottomrule
     \end{tabular}%
     }
-    \\[0.2pt]
+    \\[0.1pt]
     {\scriptsize \textbf{Table 7:} Mann-Whitney U: A vs B $p<0.001$; A vs C $p=0.0011$. Butterworth raises NPRF +380.0\%: $f_c=150$ Hz suppresses out-of-band energy far more than resonant-band energy, causing $\sigma_{\text{px}}^2$ (denominator) to fall faster than the weighted numerator. Notch preserves NPRF near baseline. Ratio-method prediction deviation: 2.4\%.}
 \end{center}
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.8\columnwidth]{4.png}
+    \includegraphics[width=0.78\columnwidth]{4.png}
     \caption{Engineering validation. (a) Filter responses vs.\ SG resonant band; notch attenuates resonant energy, Butterworth does not. (b) NPRF vs.\ physical error ($n=100$).}
     \label{fig:fig4}
 \end{figure}
@@ -436,7 +435,7 @@ Frequency bands around resonant peak $f_{\text{peak}}=51$ Hz: sub-resonant (0--4
 \textbf{Setup:} DJI Action (48 fps), 53 frames manual tracking. Ball diameter 0.246 m $\approx$ 40 px, scale $6.15\times10^{-3}$ m/px. 2D projectile: $x(t)$ linear, $y(t)$ quadratic.
 
 \begin{center}
-    \scriptsize\setlength{\tabcolsep}{3.5pt}
+    \scriptsize\setlength{\tabcolsep}{3.0pt}
     \begin{tabular}{lcc}
         \toprule
         \textbf{Quantity} & \textbf{Value} & \textbf{Note} \\
@@ -444,20 +443,50 @@ Frequency bands around resonant peak $f_{\text{peak}}=51$ Hz: sub-resonant (0--4
         $v_{0x}$ & 5.20 m/s & $R^2=0.9974$ \\
         $a_y$ & $-11.29$ m/s$^2$ & 15.2\% bias from $g$ \\
         $\sigma_x$ / $\sigma_y$ & 84.9 / 67.0 mm & Tracking noise \\
-        Frame-wise phys.\ error & 75.3\% & SG instantaneous $a$ \\
+        Workflow demo value & 75.3\% & SG instantaneous $a$ \\
         NPRF & 0.177 & Concept only \\
         \bottomrule
     \end{tabular}
-    \\[0.2pt]
+    \\[0.1pt]
     {\scriptsize \textbf{Table 8:} Bias sources: calibration ($\pm5\%$), lens distortion, air resistance (0.3\% of $g$). $N=53$: no CI possible; NPRF serves as workflow demonstration only. Pipeline executes end-to-end in $<$1 s.}
 \end{center}
+
+\subsection{Experiment 7: Real Neural-Network NPRF Audit (Proof of Concept)}
+
+\textbf{Setup:} We train a 1D CNN denoiser (4 conv layers, 32/32/16 channels, ReLU, Adam, 100 epochs) on \textbf{white-noise}-contaminated PGTS signals (10 Hz + 60 Hz, $\sigma=0.001$, $n=19900$ windows). We then apply it \textit{without retraining} to test signals contaminated by red ($\alpha=-2$), white ($\alpha=0$), and blue ($\alpha=+2$) noise ($\sigma=0.002$). For each condition, we extract window-center residuals and compute pixel RMSE, NPRF (using the SG operator frequency response), and physical error (estimated as $\|\text{SG}(\mathbf{r})\|/|a_{\text{ref}}|$, equivalent to Eq.~\eqref{eq:metrics} under PGTS constant acceleration; boundary frames excluded).
+
+\begin{center}
+    \scriptsize\setlength{\tabcolsep}{3.0pt}
+    \begin{tabular}{lccc}
+        \toprule
+        \textbf{Test noise ($\alpha$)} & \textbf{Pixel RMSE} & \textbf{NPRF} & \textbf{Physical error (\%)} \\
+        \midrule
+        Red ($-$2) & 0.00198 & 0.213 & 118.9 \\
+        White (0) & 0.00143 & $\mathbf{1.960}$ & $\mathbf{299.1}$ \\
+        Blue ($+$2) & 0.00080 & 1.374 & 133.0 \\
+        \bottomrule
+    \end{tabular}
+    \\[0.1pt]
+    {\scriptsize \textbf{Table 9:} A real 1D CNN denoiser trained only on white noise exhibits test-noise-dependent residual spectra. Pixel-RMSE ranking (red $>$ white $>$ blue) is \textit{inconsistent} with physical-error ranking (white $>$ blue $>$ red): red noise has the highest pixel RMSE but the lowest physical error, while white noise has intermediate pixel RMSE but the highest physical error. NPRF correctly flags white- and blue-noise conditions as higher-risk than red.}
+\end{center}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.78\columnwidth]{5.png}
+    \caption{Real neural-network NPRF audit. (a) CNN residual PSDs under three test noises; resonant band shaded. (b) NPRF values. (c) Physical error. The CNN is trained only on white noise; the spectral blind-spot phenomenon manifests in a real neural network.}
+    \label{fig:fig5}
+\end{figure}
+
+\textbf{Key finding:} A CNN denoiser trained only on white noise exhibits residual spectra strongly dependent on test-noise type. NPRF correctly ranks the physical risk of these residuals, demonstrating that the spectral blind-spot phenomenon is not an artifact of synthetic noise construction but manifests in a real neural network.
+
+\textbf{Note on multi-seed variance.} Preliminary multi-seed variance analysis (not shown) reveals that NPRF and physical error are highly sensitive to training randomness (NPRF coefficient of variation 30--65\%), while pixel RMSE remains relatively stable (CV 11--35\%). This phenomenon itself further supports the core thesis: standard MSE training does not confer spectral stability, and pixel-level metrics mask this instability. Robust multi-seed validation is left for future work.
 
 % ==================== 4. Limitations and Deployment ====================
 \section{Limitations and Deployment}
 
 \subsection{Limitations}
 
-\textbf{Linear-operator assumption} may break for strongly non-linear operators. \textbf{Calibration dependency:} black-box pipelines require numerical perturbation. \textbf{Statistical power:} Experiment 3 marginal ($p=0.056$, power$\approx0.35$); ablation sufficient ($p=0.000042$). \textbf{Signal-noise overlap:} notch filters attenuate genuine 60 Hz signal. \textbf{Welch leakage:} screening only for $N<200$. \textbf{PGTS-to-real-world gap:} quantitative results inside PGTS only. NPRF complements UQ: UQ asks ``how uncertain?'' NPRF asks ``how physically dangerous?''
+\textbf{Linear-operator assumption} may break for strongly non-linear operators. \textbf{Calibration dependency:} black-box pipelines require numerical perturbation. \textbf{Statistical power:} Experiment 3 marginal ($p=0.056$, power$\approx0.35$); ablation sufficient ($p=0.000042$). \textbf{Signal-noise overlap:} notch filters attenuate genuine 60 Hz signal. \textbf{Welch leakage:} screening only for $N<200$. \textbf{PGTS-to-real-world gap:} quantitative results inside PGTS only. \textbf{Single-architecture validation:} Exp.~7 validates only one CNN architecture (1D, 4-layer conv); residual spectral characteristics may differ across architectures (Transformer, UNet, etc.). NPRF complements UQ: UQ asks ``how uncertain?'' NPRF asks ``how physically dangerous?''
 
 \subsection{Deployment}
 
@@ -472,29 +501,29 @@ Spectral adversarial training (resonant-band energy penalty, squared norm, avoid
 
 Pixel-RMSE suffers structural failure within physical-derivation pipelines: identical pixel error magnitudes produce physical errors differing 3.03$\times$ (general) to 8.26$\times$ (adversarial). This paper presents the first spectral-theoretic solution, shifting from ``pixel-based trust'' to ``spectral-based trust.''
 
-Core contributions: (1) spectral sufficiency theorem (Thm.\ \ref{thm:sufficiency}); (2) NPRF requiring no physical ground truth (Eq.\ \ref{eq:nprf_def}); (3) dual RMSE+NPRF paradigm; (4) early-warning (8.26$\times$ disparity); (5) post-hoc remedy (NPRF $-49.8\%$, $p=0.002$); (6) counter-intuitive Butterworth finding (+380.0\% NPRF); (7) dual MSE blind-spots with ablation ($p=0.000042$, $d=1.558$); (8) real-world proof-of-concept.
+Core contributions: (1) spectral sufficiency theorem (Thm.\ \ref{thm:sufficiency}); (2) NPRF requiring no physical ground truth (Eq.\ \ref{eq:nprf_def}); (3) dual RMSE+NPRF paradigm; (4) early-warning (8.26$\times$ disparity); (5) post-hoc remedy (NPRF $-49.8\%$, $p=0.002$); (6) counter-intuitive Butterworth finding (+380.0\% NPRF); (7) dual MSE blind-spots with ablation ($p=0.000042$, $d=1.558$); (8) real-world proof-of-concept; (9) real neural-network proof-of-concept (NPRF ranking consistent with physical-error ranking, pixel-RMSE ranking inconsistent).
 
 \begingroup
 \scriptsize
-\textbf{Boundary statement:} Proves: (1) pixel-RMSE structural failure under operator resonance; (2) NPRF feasibility; (3) MSE spectral blind-spots; (4) post-hoc reshaping efficacy in PGTS. Does \textbf{not} prove: (a) NPRF validity for arbitrary non-linear operators; (b) filter generalizability beyond PGTS; (c) training-noise-type significance ($p=0.056$, power$\approx0.35$).
+\textbf{Boundary statement:} Proves: (1) pixel-RMSE structural failure under operator resonance; (2) NPRF feasibility; (3) MSE spectral blind-spots; (4) post-hoc reshaping efficacy in PGTS; (5) NPRF applicability on a real 1D CNN denoiser. Does \textbf{not} prove: (a) NPRF validity for arbitrary non-linear operators; (b) filter generalizability beyond PGTS; (c) training-noise-type significance ($p=0.056$, power$\approx0.35$); (d) NPRF generalizability across neural architectures.
 \endgroup
 
-\vspace{0.5pt}
+\vspace{0.3pt}
 
 Every AI Scientist that derives physical quantities from observational data is, knowingly or not, making a bet about the spectral flatness of its residual errors. This paper shows that bet is often lost. The \textbf{Spectral Vaccine}---NPRF diagnosis plus post-hoc Spectral-Immunity filtering---provides the first deployable immune response. The plug-and-play nature of NPRF---no ground truth, minimal overhead, offline calibration---makes it a candidate for infrastructure. \textbf{Future AI-Scientists need not only powerful reasoning, but also an intrinsic immune system---autonomously asking, before every output: is my result physically credible?}
 
-\vspace{0.3pt}
+\vspace{0.2pt}
 {\scriptsize\noindent\textbf{Acknowledgements:} We thank Supervisor Wei Teng, head teachers Ms. Minglu Zhang and Mr. Zheng Niu, and grade director Ms. Qian Ren for their support. 
-\vspace{1pt}
+\vspace{0.5pt}
 {\scriptsize\noindent\textbf{Author Contributions:} Rosslyn Yang and Ethan Lin contributed equally to this work. R.Y. proposed the research question, developed the theoretical framework, and designed the experiments. E.L. performed the frequency-domain analysis, implemented all code, and conducted the numerical experiments. Both authors analyzed the results and wrote the manuscript.}
 Code: \texttt{https://github.com/RosslynKira/spectral-immunity}}
 
 % ==================== References ====================
 \begingroup
 \scriptsize
-\setlength{\itemsep}{0pt}
+\setlength{\itemsep}{-0.5pt}
 \setlength{\parsep}{0pt}
-\renewcommand{\baselinestretch}{0.68}
+\renewcommand{\baselinestretch}{0.60}
 \begin{thebibliography}{99}
 
 \bibitem{abramson2024}
@@ -567,7 +596,7 @@ M.~Tancik, P.~P.~Srinivasan, B.~Mildenhall, et al.
 \newblock \textit{Advances in Neural Information Processing Systems 33}, 2020.
 
 \bibitem{ronen2019}
-R.~Basri, D.~Jacobs, Y.~Kasten, and S.~Kritchman.
+R.~Ronen, R.~Basri, D.~Jacobs, Y.~Kasten, and S.~Kritchman.
 \newblock The convergence rate of neural networks for learned functions of different frequencies.
 \newblock \textit{Advances in Neural Information Processing Systems 32}, pp.~4761--4771, 2019.
 

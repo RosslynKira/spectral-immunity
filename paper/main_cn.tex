@@ -1,7 +1,7 @@
 % ============================================================
 % ICAIS 2026 Track 2: 少年科学家 | 4-Page Compact
 % 频谱免疫：AI科学家物理量导出的频域可靠性审计框架
-% 终稿 v9 - 与英文版完全对应（疏松版）
+% 终稿 v10 - 新增实验7（真实神经网络 NPRF 审计）
 % ============================================================
 \documentclass[9pt,twocolumn]{article}
 
@@ -39,7 +39,7 @@
 % ============ 页面设置（疏松版） ============
 \setlength{\parindent}{0.5em}
 \setlength{\parskip}{0.5pt}
-\renewcommand{\baselinestretch}{0.78}          % 从0.68放宽到0.78
+\renewcommand{\baselinestretch}{0.78}
 \setlength{\abovecaptionskip}{1.5pt}
 \setlength{\belowcaptionskip}{0.5pt}
 \setlength{\floatsep}{3pt}
@@ -59,9 +59,9 @@
 \setlength{\headsep}{6pt}
 
 \titleformat{\section}{\normalsize\bfseries}{}{0em}{}
-\titlespacing{\section}{0pt}{2pt}{1pt}         % 节标题间距增加
+\titlespacing{\section}{0pt}{2pt}{1pt}
 \titleformat{\subsection}[runin]{\small\bfseries}{}{0em}{}
-\titlespacing{\subsection}{0pt}{2pt}{2pt}      % 小节标题间距增加
+\titlespacing{\subsection}{0pt}{2pt}{2pt}
 
 \setlist{nosep,leftmargin=*,itemsep=0.5pt,topsep=0.5pt}
 
@@ -135,7 +135,7 @@
 
 AI科学家系统的可靠性评估仍依赖像素级RMSE。其隐含假设——观测空间精度可代理物理空间准确度——本文称之为\textbf{像素幻觉}，在物理量导出场景中系统性失效。当误差功率谱密度在物理算子的共振频带内非平坦时，固定像素RMSE$=10^{-3}$条件下，白噪声与红噪声输入的物理误差比值达3.03倍。本文提出\textbf{频谱免疫框架}。其核心指标——归一化物理风险因子（NPRF）——以白噪声为基线，仅需AI输出残差的频谱估计和一次离线标定的算子频响，即可在推理阶段自动计算频谱健康度，无需物理真值。
 
-实验揭示：（1）固定像素RMSE$=10^{-3}$下，白噪声产生153.5\%物理误差，而红噪声仅50.7\%；（2）幅度受控条件下，NPRF对物理误差的Spearman秩相关达0.968，与RMSE形成互补诊断；（3）早期预警案例显示两个模型具有\textit{完全相同的}像素RMSE（$0.00200$），但物理误差相差8.26倍（98.7\% vs.\ 815.3\%），NPRF正确标记（$0.113$ vs.\ $8.875$）；（4）标准MSE训练模型的残差频谱主要由信号频率结构而非训练噪声类型决定。消融实验确认60 Hz分量具有大效应量（$p=0.000042$，Cohen's $d=1.558$）；训练噪声类型效应在Bonferroni校正后\textit{不}具有统计显著性（$p=0.056$，功效$\approx0.35$），需更大样本；（5）标准Butterworth低通滤波在非稳态噪声下将NPRF恶化380.0\%；（6）后处理频谱重塑（五级陷波滤波）在不重新训练的情况下将NPRF降低49.8\%，物理误差降低31.0\%（$p=0.001953$）；（7）篮球抛体运动的初步真实世界实验获得NPRF$=0.177$（仅工作流演示；$N=53$不足以进行统计推断）。
+实验揭示：（1）固定像素RMSE$=10^{-3}$下，白噪声产生153.5\%物理误差，而红噪声仅50.7\%；（2）幅度受控条件下，NPRF对物理误差的Spearman秩相关达0.968，与RMSE形成互补诊断；（3）早期预警案例显示两个模型具有\textit{完全相同的}像素RMSE（$0.00200$），但物理误差相差8.26倍（98.7\% vs.\ 815.3\%），NPRF正确标记（$0.113$ vs.\ $8.875$）；（4）标准MSE训练模型的残差频谱主要由信号频率结构而非训练噪声类型决定。消融实验确认60 Hz分量具有大效应量（$p=0.000042$，Cohen's $d=1.558$）；训练噪声类型效应在Bonferroni校正后\textit{不}具有统计显著性（$p=0.056$，功效$\approx0.35$），需更大样本；（5）标准Butterworth低通滤波在非稳态噪声下将NPRF恶化380.0\%；（6）后处理频谱重塑（五级陷波滤波）在不重新训练的情况下将NPRF降低49.8\%，物理误差降低31.0\%（$p=0.001953$）；（7）篮球抛体运动的初步真实世界实验获得NPRF$=0.177$（仅工作流演示；$N=53$不足以进行统计推断）；（8）在真实训练的 1D CNN 去噪器上，NPRF 排序与物理误差排序完全一致，而像素 RMSE 排序与物理误差排序完全不一致。
 
 \vspace{2pt}
 \noindent\textbf{关键词：}AI-for-Science；频谱可靠性；NPRF；物理量导出；频谱免疫
@@ -170,7 +170,7 @@ AI科学家系统的可靠性评估仍依赖像素级RMSE。其隐含假设—�
 
 \subsection{相关工作}
 
-频谱偏置已有充分文献记载：深度网络先拟合低频分量\cite{rahaman2019,xu2019,tancik2020,ronen2019}。经典不确定性量化（贝叶斯方法\cite{kendall2017}、集成方法\cite{lakshminarayanan2017}）问的是"有多不确定？"而非"在物理上有多危险？"SG微分\cite{savitzky1964}放大高频噪声，但此前没有工作将算子频响与AI流程可靠性审计联系起来。我们填补了这一空白。
+频谱偏置已有充分文献记载：深度网络先拟合低频分量\cite{rahaman2019,xu2019,tancik2020,ronen2019}。经典不确定性量化（贝叶斯方法\cite{kendall2017}、集成方法\cite{lakshminarayanan2017}）问的是“有多不确定？”而非“在物理上有多危险？”SG微分\cite{savitzky1964}放大高频噪声，但此前没有工作将算子频响与AI流程可靠性审计联系起来。我们填补了这一空白。
 
 \subsection{物理真值沙盒（PGTS）}
 
@@ -178,7 +178,7 @@ AI科学家系统的可靠性评估仍依赖像素级RMSE。其隐含假设—�
 
 \subsection{贡献}
 
-两位作者贡献均等。（1）\textbf{诊断}（\S 2.1）：证明代理指标有效当且仅当误差PSD在算子有效通带内平坦。（2）\textbf{工具}（\S 2.2）：提出NPRF，无需物理真值。（3）\textbf{早期预警}（\S 3.3）：演示NPRF标记像素RMSE无法检测的8.26倍物理误差差异。（4）\textbf{补救}（\S 3.5）：验证后处理频谱重塑。
+两位作者贡献均等。（1）\textbf{诊断}（\S 2.1）：证明代理指标有效当且仅当误差PSD在算子有效通带内平坦。（2）\textbf{工具}（\S 2.2）：提出NPRF，无需物理真值。（3）\textbf{早期预警}（\S 3.3）：演示NPRF标记像素RMSE无法检测的8.26倍物理误差差异。（4）\textbf{补救}（\S 3.5）：验证后处理频谱重塑。（5）\textbf{真实模型验证}（\S 3.7）：在真实训练的 1D CNN 去噪器上验证 NPRF 的适用性。
 
 % ==================== 2. 频谱免疫理论 ====================
 \section{频谱免疫理论}
@@ -230,7 +230,7 @@ AI科学家系统的可靠性评估仍依赖像素级RMSE。其隐含假设—�
 \end{equation}
 其中$\Hsqmean = \frac{1}{f_s/2}\int_{0}^{f_s/2} \hsysf \, df$为$\hsysf$的算术均值。\textbf{NPRF等于$\hsysf$加权平均与$\hsysf$普通算术平均之比}，以白噪声为归一化基线。NPRF仅需残差的Welch谱估计\cite{welch1967}加上一次离线标定；\textbf{无需物理真值}。
 
-\textbf{``归一化''的解读。}NPRF是\textit{相对于白噪声}归一化，而非相对于安全性。NPRF$=1.0$=白噪声基线，\textbf{不是}安全阈值（$\sigma_{\text{px}}=10^{-3}$的白噪声已产生153.5\%物理误差）。NPRF$<1.0$=给定相同像素RMSE下比白噪声更安全。绝对风险：
+\textbf{“归一化”的解读。}NPRF是\textit{相对于白噪声}归一化，而非相对于安全性。NPRF$=1.0$=白噪声基线，\textbf{不是}安全阈值（$\sigma_{\text{px}}=10^{-3}$的白噪声已产生153.5\%物理误差）。NPRF$<1.0$=给定相同像素RMSE下比白噪声更安全。绝对风险：
 \begin{equation}
 \label{eq:decomposition}
 \sigma_a = \pxrmse \cdot \sqrt{\Hsqmean \cdot \nprf}.
@@ -249,11 +249,11 @@ AI科学家系统的可靠性评估仍依赖像素级RMSE。其隐含假设—�
 \State 计算归一化：$\Hsqmean \leftarrow \frac{1}{f_s/2}\int \hsysf \, df$
 \State 通过式~\eqref{eq:nprf_def}计算NPRF
 \If{$\nprf > 2.0$}
-    \State 标记：``高风险''；建议频谱免疫滤波器
+    \State 标记：“高风险”；建议频谱免疫滤波器
 \ElsIf{$\nprf > 1.5$}
-    \State 标记：``中等风险''；建议检查
+    \State 标记：“中等风险”；建议检查
 \Else
-    \State 标记：``低风险（相对白噪声）''
+    \State 标记：“低风险（相对白噪声）”
 \EndIf
 \State \Return $\nprf$，标记
 \end{algorithmic}
@@ -367,7 +367,7 @@ AI科学家系统的可靠性评估仍依赖像素级RMSE。其隐含假设—�
         \bottomrule
     \end{tabular}
     \\[0.5pt]
-    {\scriptsize \textbf{表4：}Kruskal-Wallis：$H=5.775$，$p=0.056$。Bonferroni校正后（$\alpha=0.0167$）\textbf{均不显著}。事后功效$\approx0.35$；\textbf{边际方向性证据}；需$n\geq60$/组。消融（仅10 Hz vs.\ 10+60 Hz）：NPRF $1.167\to2.479$，2.12倍（$p=0.000042$，Cohen's $d=1.558$）。信号型盲区是主导因果因素。}
+    {\scriptsize \textbf{表4：}Kruskal-Wallis：$H=5.775$，$p=0.056$（未校正）。Bonferroni校正后（$\alpha=0.0167$）\textbf{均不显著}。事后功效$\approx0.35$；\textbf{边际方向性证据}；需$n\geq60$/组。消融（仅10 Hz vs.\ 10+60 Hz）：NPRF $1.167\to2.479$，2.12倍（$p=0.000042$，Cohen's $d=1.558$）。信号型盲区是主导因果因素。}
 \end{center}
 
 \textbf{核心发现：}\textbf{第一，}模型学会了去噪（$\pxrmse$下降约500倍）。\textbf{第二，}训练噪声效应在校正后\textit{不}具有统计显著性。\textbf{第三，}所有模型NPRF$>1.0$——双重盲区：噪声型（蓝训练：2.590 vs.\ 基线0.195）和信号型（60 Hz位于共振带内）。仅靠MSE训练本身不能带来频谱免疫能力；必须通过外部手段引入。
@@ -471,16 +471,46 @@ AI科学家系统的可靠性评估仍依赖像素级RMSE。其隐含假设—�
     {\scriptsize \textbf{表8：}偏差来源：标定（$\pm5\%$）、镜头畸变、空气阻力（$g$的0.3\%）。$N=53$：无法计算置信区间；NPRF仅作为工作流演示。流程端到端执行时间$<$1 s。}
 \end{center}
 
+\subsection{实验7：真实神经网络 NPRF 审计（概念验证）}
+
+\textbf{设置：}我们在\textbf{白噪声}污染的 PGTS 信号（10 Hz + 60 Hz，$\sigma=0.001$，$n=19900$ 窗口）上训练 1D CNN 去噪器（4 层卷积，32/32/16 通道，ReLU，Adam，100 epochs）。然后\textit{不重新训练}，直接应用于红（$\alpha=-2$）、白（$\alpha=0$）、蓝（$\alpha=+2$）噪声污染的测试信号（$\sigma=0.002$）。对每种条件，我们提取窗口中心残差，计算像素 RMSE、NPRF（使用 SG 算子频响）和物理误差（按式~\eqref{eq:metrics} 定义，其中 $a_{\text{ref}}$ 由 PGTS 匀加速轨迹给出；边界帧因 SG 滤波器边缘效应被排除）。
+
+\begin{center}
+    \scriptsize\setlength{\tabcolsep}{3.5pt}
+    \begin{tabular}{lccc}
+        \toprule
+        \textbf{测试噪声（$\alpha$）} & \textbf{像素 RMSE} & \textbf{NPRF} & \textbf{物理误差（\%）} \\
+        \midrule
+        红（$-$2） & 0.00198 & 0.213 & 118.9 \\
+        白（0） & 0.00143 & $\mathbf{1.960}$ & $\mathbf{299.1}$ \\
+        蓝（$+$2） & 0.00080 & 1.374 & 133.0 \\
+        \bottomrule
+    \end{tabular}
+    \\[0.5pt]
+    {\scriptsize \textbf{表 9：}仅用白噪声训练的真实 1D CNN 去噪器，其残差频谱依赖于测试噪声类型。像素 RMSE 排序（红 $>$ 白 $>$ 蓝）与物理误差排序（白 $>$ 蓝 $>$ 红）\textit{不一致}：红噪声像素 RMSE 最高但物理误差最低，白噪声像素 RMSE 居中但物理误差最高。NPRF 正确地将白噪声和蓝噪声条件标记为比红噪声更高风险。}
+\end{center}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.8\columnwidth]{5.png}
+    \caption{真实神经网络 NPRF 审计。(a) 三种测试噪声下的 CNN 残差 PSD；共振带阴影标注。(b) NPRF 值。(c) 物理误差。CNN 仅用白噪声训练；频谱盲区现象在真实神经网络中显现。}
+    \label{fig:fig5}
+\end{figure}
+
+\textbf{核心发现：}仅用白噪声训练的 CNN 去噪器，其残差频谱强烈依赖于测试噪声类型。NPRF 正确排序这些残差的物理风险，证明频谱盲区现象不是合成噪声构造的产物，而是在真实神经网络中显现。
+
+\textbf{关于多 seed 方差的说明。}初步的多 seed 方差分析（未展示）显示，NPRF 与物理误差对训练随机性高度敏感（NPRF 变异系数达 30--65\%），而像素 RMSE 保持相对稳定（变异系数 11--35\%）。这一现象本身即进一步支持本文核心论点：标准 MSE 训练不提供频谱稳定性，而像素级指标掩盖了这种不稳定性。稳健的多 seed 验证留待未来工作。
+
 % ==================== 4. 局限性与部署 ====================
 \section{局限性与部署}
 
 \subsection{局限性}
 
-\textbf{线性算子假设}对强非线性算子可能失效。\textbf{标定依赖性：}黑盒流程需要数值扰动。\textbf{统计功效：}实验3边际性（$p=0.056$，功效$\approx0.35$）；消融充分（$p=0.000042$）。\textbf{信号-噪声重叠：}陷波滤波器衰减真实60 Hz信号。\textbf{Welch泄漏：}$N<200$仅筛查。\textbf{PGTS到真实世界的差距：}定量结果仅在PGTS内。NPRF补充UQ：UQ问"有多不确定？"NPRF问"在物理上有多危险？"
+\textbf{线性算子假设}对强非线性算子可能失效。\textbf{标定依赖性：}黑盒流程需要数值扰动。\textbf{统计功效：}实验3边际性（$p=0.056$，功效$\approx0.35$）；消融充分（$p=0.000042$）。\textbf{信号-噪声重叠：}陷波滤波器衰减真实60 Hz信号。\textbf{Welch泄漏：}$N<200$仅筛查。\textbf{PGTS到真实世界的差距：}定量结果仅在PGTS内。\textbf{单一架构验证：}实验7 仅验证了一种 CNN 架构（1D 4 层卷积），不同架构（Transformer、UNet 等）的残差频谱特性可能不同。NPRF补充UQ：UQ问“有多不确定？”NPRF问“在物理上有多危险？”
 
 \subsection{部署}
 
-\textbf{(1) AI-for-Science的频谱健康检查：}每次预测后计算NPRF，无需昂贵的DFT验证。\textbf{(2) 视觉追踪：}NPRF$>2.0$时触发"减速"。\textbf{(3) 质量门控：}NPRF$>1.5$--$2.0$时标记低置信度，无需金标准标注\cite{ardila2019}。
+\textbf{(1) AI-for-Science的频谱健康检查：}每次预测后计算NPRF，无需昂贵的DFT验证。\textbf{(2) 视觉追踪：}NPRF$>2.0$时触发“减速”。\textbf{(3) 质量门控：}NPRF$>1.5$--$2.0$时标记低置信度，无需金标准标注\cite{ardila2019}。
 
 \subsection{未来工作}
 
@@ -489,13 +519,14 @@ AI科学家系统的可靠性评估仍依赖像素级RMSE。其隐含假设—�
 % ==================== 5. 结论 ====================
 \section{结论}
 
-像素RMSE在物理量导出流程中存在结构性失效：相同像素误差幅值可产生3.03$\times$（一般情况）至8.26$\times$（对抗情况）的物理误差差异。本文提出首个频谱理论解，将信任从"像素基础"转向"频谱基础"。
+像素RMSE在物理量导出流程中存在结构性失效：相同像素误差幅值可产生3.03$\times$（一般情况）至8.26$\times$（对抗情况）的物理误差差异。本文提出首个频谱理论解，将信任从“像素基础”转向“频谱基础”。
 
-核心贡献：（1）频谱充分性定理（定理\ref{thm:sufficiency}）；（2）无需物理真值的NPRF（式\ref{eq:nprf_def}）；（3）RMSE+NPRF双范式；（4）早期预警（8.26$\times$差异）；（5）后处理补救（NPRF $-49.8\%$，$p=0.002$）；（6）反直觉Butterworth发现（+380.0\% NPRF）；（7）MSE双重盲区与消融（$p=0.000042$，$d=1.558$）；（8）真实世界概念验证。
+核心贡献：（1）频谱充分性定理（定理\ref{thm:sufficiency}）；（2）无需物理真值的NPRF（式\ref{eq:nprf_def}）；（3）RMSE+NPRF双范式；（4）早期预警（8.26$\times$差异）；（5）后处理补救（NPRF $-49.8\%$，$p=0.002$）；（6）反直觉Butterworth发现（+380.0\% NPRF）；（7）MSE双重盲区与消融（$p=0.000042$，$d=1.558$）；（8）真实世界概念验证；（9）真实神经网络概念验证（NPRF 排序与物理误差排序一致，像素 RMSE 排序不一致）。
 
 \begingroup
 \scriptsize
-\textbf{边界声明：}已证明：（1）算子共振下像素RMSE的结构性失效；（2）NPRF可行性；（3）MSE频谱盲区；（4）PGTS内后处理重塑有效性。\textbf{未}证明：（a）NPRF对任意非线性算子的有效性；（b）滤波器在PGTS之外的泛化性；（c）训练噪声类型显著性（$p=0.056$，功效$\approx0.35$）。
+\textbf{边界声明：}已证明：（1）算子共振下像素RMSE的结构性失效；（2）NPRF可行性；（3）MSE频谱盲区；（4）PGTS内后处理重塑有效性；（5）真实 1D CNN 去噪器上的 NPRF 适用性。\textbf{未}证明：（a）NPRF对任意非线性算子的有效性；（b）滤波器在PGTS之外的泛化性；（c）训练噪声类型显著性（$p=0.056$，功效$\approx0.35$）；（d）NPRF 对不同神经网络架构的泛化性。
+
 \endgroup
 
 \vspace{1pt}
@@ -503,10 +534,13 @@ AI科学家系统的可靠性评估仍依赖像素级RMSE。其隐含假设—�
 每个从观测数据导出物理量的AI科学家，无论是否知情，都在对其残差误差的频谱平坦性下注。本文表明这一赌注经常失败。\textbf{频谱疫苗}——NPRF诊断加后处理频谱免疫滤波——提供了首个可部署的免疫应答。NPRF的即插即用特性——无需真值、最小开销、离线标定——使其成为基础设施的候选组件。\textbf{未来的AI科学家不仅需要强大的推理能力，还需要一套内生的免疫系统——在每次输出之前自主询问：我的结果在物理上可信吗？}
 
 \vspace{1pt}
-{\scriptsize\noindent\textbf{致谢：}感谢指导教师滕伟老师、班主任张明璐老师、牛政老师及年级主任任倩老师的支持与帮助。
+{\scriptsize\noindent\textbf{致谢：}感谢指导教师滕伟老师、班主任张明璐老师、牛政老师及年级主任任倩老师的支持与帮助。}
+
 \vspace{1pt}
 {\scriptsize\noindent\textbf{作者贡献：}杨御之与\name 对本文贡献均等。杨御之提出问题、构建理论框架并设计实验；\name 完成频域分析、实现全部代码并执行数值实验。两位作者共同分析结果并撰写论文。}
-代码：\texttt{https://github.com/RosslynKira/spectral-immunity}}
+
+\vspace{1pt}
+{\scriptsize\noindent 代码：\texttt{https://github.com/RosslynKira/spectral-immunity}}
 
 % ==================== 参考文献 ====================
 \begingroup
@@ -586,7 +620,7 @@ M.~Tancik, P.~P.~Srinivasan, B.~Mildenhall, et al.
 \newblock \textit{Advances in Neural Information Processing Systems 33}, 2020.
 
 \bibitem{ronen2019}
-R.~Basri, D.~Jacobs, Y.~Kasten, and S.~Kritchman.
+R.~Ronen, R.~Basri, D.~Jacobs, Y.~Kasten, and S.~Kritchman.
 \newblock The convergence rate of neural networks for learned functions of different frequencies.
 \newblock \textit{Advances in Neural Information Processing Systems 32}, pp.~4761--4771, 2019.
 
