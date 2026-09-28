@@ -2,7 +2,7 @@
 % ICAIS 2026 Track 2: Young Scientist | 4-Page Compact
 % Spectral Immunity: A Frequency-Domain Reliability Audit
 % Framework for Physics-Derived Outputs in AI Scientists
-% Final Version v11 - Tone-downed per reviewer comments
+% Final Version v12 - Camera-ready tone-downed per reviewer comments
 % ============================================================
 \documentclass[9pt,twocolumn]{article}
 
@@ -117,7 +117,7 @@ Reliability evaluation for AI-Scientist systems still relies on pixel-level RMSE
 
 Experiments reveal: (1) Under fixed pixel RMSE $=10^{-3}$, white noise yields 153.5\% physical error while red noise yields only 50.7\%; (2) Under amplitude-controlled conditions, NPRF achieves a Spearman rank correlation of 0.968 against physical error, forming complementary diagnostics alongside RMSE; (3) An early-warning case study shows two models with \textit{identical} pixel RMSE ($0.00200$) but physical errors differing by 8.26-fold (98.7\% vs.\ 815.3\%), correctly flagged by NPRF ($0.113$ vs.\ $8.875$); (4) Ablation confirms that the 60 Hz signal component has a large effect on residual spectra ($p=0.000042$, Cohen's $d=1.558$); training-noise-type effects are \textit{not} statistically significant after Bonferroni correction ($p=0.056$, power $\approx0.35$), warranting larger samples; (5) Standard Butterworth low-pass filtering degrades NPRF by 380.0\% under non-stationary noise; (6) Post-hoc spectral reshaping via five-stage notch filtering reduces NPRF by 49.8\% and physical error by 31.0\% ($p=0.001953$) without retraining; (7) A preliminary real-world workflow demonstration on basketball projectile motion ($N=53$, no statistical inference) obtains NPRF$=0.177$; (8) On a genuinely trained 1D CNN denoiser, NPRF ranking is fully consistent with physical-error ranking, whereas pixel-RMSE ranking is fully inconsistent with it.
 
-This work is positioned as a proof of concept; quantitative results are based on a representative Savitzky--Golay operator and do not claim direct generalizability to arbitrary operators or arbitrary AI-for-Science systems.
+This work is positioned as a proof of concept; quantitative results are based on a representative Savitzky--Golay operator and do not claim direct generalizability to arbitrary operators or arbitrary AI-for-Science systems. The NPRF thresholds 1.5 and 2.0 are initial operating points and have not been independently calibrated; they should be treated as screening suggestions rather than safety certifications.
 
 \vspace{0.1pt}
 \noindent\textbf{Keywords:} AI-for-Science; spectral reliability; NPRF; physical-quantity derivation; spectral immunity
@@ -496,7 +496,7 @@ Frequency bands around resonant peak $f_{\text{peak}}=51$ Hz: sub-resonant (0--4
 
 \subsection{Deployment}
 
-The following deployment recommendations are based on the PGTS and single-operator validation scope of this paper. Before actual deployment, the 1.5/2.0 thresholds should be recalibrated under the target operator, target noise conditions, and target physical quantity.
+The following deployment recommendations are based on the PGTS and single-operator validation scope of this paper. Before actual deployment, the 1.5/2.0 thresholds should be recalibrated under the target operator, target noise conditions, and target physical quantity. The recommendations below are screening suggestions, not deployment certifications.
 
 \textbf{(1) Spectral health check for AI-for-Science:} NPRF after every prediction, no costly DFT validation. \textbf{(2) Vision-based tracking:} trigger ``slow-down'' when NPRF$>2.0$. \textbf{(3) Quality-gating:} mark low-confidence when NPRF$>1.5$--$2.0$, no gold-standard annotations required\cite{ardila2019}.
 
