@@ -2,7 +2,7 @@
 % ICAIS 2026 Track 2: Young Scientist | 4-Page Compact
 % Spectral Immunity: A Frequency-Domain Reliability Audit
 % Framework for Physics-Derived Outputs in AI Scientists
-% Final Version v10c - Compact (4-page hard limit)
+% Final Version v11 - Tone-downed per reviewer comments
 % ============================================================
 \documentclass[9pt,twocolumn]{article}
 
@@ -99,7 +99,7 @@
 {\scriptsize $^{1}$ Nankai High School, Tianjin, China \quad \texttt{mdrosslyning@gmail.com} \quad \texttt{daoming\_kan@163.com}\quad Supervisor: Wei Teng \ $^{1}$ }
     \vspace{0.3pt}
 
-    {\scriptsize\textbf{Human Responsibility Statement:} Core scientific insights, all theorem derivations, experimental design and analysis are completed independently by the authors. AI tools are only used for Python code syntax debugging and English abstract polishing. All experimental codes and data are fully reproducible.}
+    {\scriptsize\textbf{Human Responsibility Statement:} Core scientific insights, all theorem derivations, experimental design and analysis are completed independently by the authors. AI tools are only used for Python code syntax debugging and English abstract polishing, and did not participate in the generation of scientific conclusions. All experimental codes and data are fully reproducible.}
 
     \vspace{0.3pt}
     \rule{\linewidth}{0.4pt}
@@ -113,9 +113,11 @@
 \scriptsize
 \setlength{\parindent}{0.7em}
 
-Reliability evaluation for AI-Scientist systems still relies on pixel-level RMSE. Its implicit assumption---that observation-space precision proxies physical-space accuracy---which we term the \textbf{pixel hallucination}, systematically fails for physics-derived outputs. When the error power-spectral density is non-flat within the resonant frequency band of physical operators, under a fixed pixel RMSE $=10^{-3}$, the ratio of physical error between white-noise and red-noise inputs reaches 3.03-fold. This paper proposes the \textbf{Spectral-Immunity framework}. Its core metric, the Normalized Physical Risk Factor (NPRF), takes white noise as the baseline. Given only spectral estimation of AI output residuals and one-off offline calibration of the operator frequency response, NPRF automatically computes spectral health during inference without requiring ground-truth physical values.
+Reliability evaluation for AI-Scientist systems still relies on pixel-level RMSE. Its implicit assumption---that observation-space precision proxies physical-space accuracy---which we term the \textbf{pixel hallucination}, systematically fails for physics-derived outputs. When the error power-spectral density is non-flat within the resonant frequency band of physical operators, under a fixed pixel RMSE $=10^{-3}$, the ratio of physical error between white-noise and red-noise inputs reaches 3.03-fold. This paper proposes and preliminarily validates the \textbf{Spectral-Immunity framework} (proof of concept). Its core metric, the Normalized Physical Risk Factor (NPRF), takes white noise as the baseline. Given only spectral estimation of AI output residuals and one-off offline calibration of the operator frequency response, NPRF automatically computes spectral health during inference without requiring ground-truth physical values (within the validation scope of this paper).
 
-Experiments reveal: (1) Under fixed pixel RMSE $=10^{-3}$, white noise yields 153.5\% physical error while red noise yields only 50.7\%; (2) Under amplitude-controlled conditions, NPRF achieves a Spearman rank correlation of 0.968 against physical error, forming complementary diagnostics alongside RMSE; (3) An early-warning case study shows two models with \textit{identical} pixel RMSE ($0.00200$) but physical errors differing by 8.26-fold (98.7\% vs.\ 815.3\%), correctly flagged by NPRF ($0.113$ vs.\ $8.875$); (4) Ablation confirms that the 60 Hz signal component has a large effect on residual spectra ($p=0.000042$, Cohen's $d=1.558$); training-noise-type effects are \textit{not} statistically significant after Bonferroni correction ($p=0.056$, power $\approx0.35$), warranting larger samples; (5) Standard Butterworth low-pass filtering degrades NPRF by 380.0\% under non-stationary noise; (6) Post-hoc spectral reshaping via five-stage notch filtering reduces NPRF by 49.8\% and physical error by 31.0\% ($p=0.001953$) without retraining; (7) A preliminary real-world experiment on basketball projectile motion obtains NPRF$=0.177$ (workflow demonstration only; $N=53$ insufficient for statistical inference); (8) On a genuinely trained 1D CNN denoiser, NPRF ranking is fully consistent with physical-error ranking, whereas pixel-RMSE ranking is fully inconsistent with it.
+Experiments reveal: (1) Under fixed pixel RMSE $=10^{-3}$, white noise yields 153.5\% physical error while red noise yields only 50.7\%; (2) Under amplitude-controlled conditions, NPRF achieves a Spearman rank correlation of 0.968 against physical error, forming complementary diagnostics alongside RMSE; (3) An early-warning case study shows two models with \textit{identical} pixel RMSE ($0.00200$) but physical errors differing by 8.26-fold (98.7\% vs.\ 815.3\%), correctly flagged by NPRF ($0.113$ vs.\ $8.875$); (4) Ablation confirms that the 60 Hz signal component has a large effect on residual spectra ($p=0.000042$, Cohen's $d=1.558$); training-noise-type effects are \textit{not} statistically significant after Bonferroni correction ($p=0.056$, power $\approx0.35$), warranting larger samples; (5) Standard Butterworth low-pass filtering degrades NPRF by 380.0\% under non-stationary noise; (6) Post-hoc spectral reshaping via five-stage notch filtering reduces NPRF by 49.8\% and physical error by 31.0\% ($p=0.001953$) without retraining; (7) A preliminary real-world workflow demonstration on basketball projectile motion ($N=53$, no statistical inference) obtains NPRF$=0.177$; (8) On a genuinely trained 1D CNN denoiser, NPRF ranking is fully consistent with physical-error ranking, whereas pixel-RMSE ranking is fully inconsistent with it.
+
+This work is positioned as a proof of concept; quantitative results are based on a representative Savitzky--Golay operator and do not claim direct generalizability to arbitrary operators or arbitrary AI-for-Science systems.
 
 \vspace{0.1pt}
 \noindent\textbf{Keywords:} AI-for-Science; spectral reliability; NPRF; physical-quantity derivation; spectral immunity
@@ -140,17 +142,17 @@ This paper focuses on reliability auditing for the workflow below:
 \text{Observed data} \xrightarrow{\text{AI model}} \hat{\mathbf{x}} \xrightarrow{\text{physical derivation operator}\ \mathcal{D}} \hat{a}
 \end{equation}
 
-Here $\hat{\mathbf{x}}$ denotes the AI output in observation space; $\mathcal{D}$ is a deterministic operator for deriving physical quantities (differentiation, deconvolution, integral transforms). Pixel-level RMSE evaluates error in the first stage, whereas credibility of physical experiments depends on errors of the second-stage output $\hat{a}$. Huge gains within specific frequency bands from the frequency response of $\mathcal{D}$ may amplify the mapping between these two spaces by orders of magnitude.
+Here $\hat{\mathbf{x}}$ denotes the AI output in observation space; $\mathcal{D}$ is a deterministic operator for deriving physical quantities (differentiation, deconvolution, integral transforms). Pixel-level RMSE evaluates error in the first stage, whereas credibility of physical experiments depends on errors of the second-stage output $\hat{a}$. Huge gains within specific frequency bands from the frequency response of $\mathcal{D}$ may amplify the mapping between these two spaces by orders of magnitude. This failure is not a numerical-precision issue but an evaluation-paradigm issue: the operator frequency response between pixel space and physical space acts as an unaudited amplifier.
 
 Within conventional scientific practice, human researchers perform cross-validation via replicated experiments, alternative methodologies, and theoretical expectations. When AI takes over these steps, reliability assessment is simplified to pixel-wise RMSE. This embeds an untested proxy assumption: precision in observation space can proxy accuracy in physical space. We name this unquestioned acceptance the \textbf{pixel hallucination}, and prove that this assumption fails systematically.
 
-\textbf{Why AI-Scientists specifically require this.} In autonomous laboratories\cite{burger2020}, AI-Scientists generate hypotheses, design experiments and interpret results in closed loops; when evaluators contain spectral blind spots, errors are written into knowledge bases undetected. Deep networks fit high-frequency components more slowly than low-frequency ones\cite{xu2019,rahaman2019,tancik2020,ronen2019}; residual spectra are intrinsically non-flat. AlphaFold\cite{abramson2024} predicts hundreds-of-millions protein structures within months; even a 1\% spectral-blind-spot error rate exceeds the total errors made by human scientists across lifetimes. \textbf{Spectral immunity is thus a core component of AI-Scientist metacognition.}
+\textbf{Why AI-Scientists specifically require this.} In autonomous laboratories\cite{burger2020}, AI-Scientists generate hypotheses, design experiments and interpret results in closed loops; when evaluators contain spectral blind spots, errors are written into knowledge bases undetected. Deep networks fit high-frequency components more slowly than low-frequency ones\cite{xu2019,rahaman2019,tancik2020,ronen2019}; residual spectra are intrinsically non-flat. AlphaFold\cite{abramson2024} predicts hundreds-of-millions protein structures within months; even a 1\% spectral-blind-spot error rate exceeds the total errors made by human scientists across lifetimes. \textbf{Spectral immunity has the potential to become a core component of AI-Scientist metacognition.}
 
-\textbf{Scope.} This paper does not propose a new AI model. Instead, it addresses: \textit{when an AI model outputs physical quantities, how can the AI system itself know whether those outputs are trustworthy?} We provide the diagnostic tool (NPRF), the early-warning demonstration (Exp.\ 2b), and the remedy (post-hoc reshaping).
+\textbf{Scope.} This paper does not propose a new AI model. Instead, it addresses: \textit{when an AI model outputs physical quantities, how can the AI system itself know whether those outputs are trustworthy?} We provide the diagnostic tool (NPRF), the early-warning demonstration (Exp.\ 2b), and the remedy (post-hoc reshaping). This paper is positioned as a proof of concept: we provide a diagnostic tool, an early-warning demonstration, and a remedy, but do not claim deployment validation across broad AI-for-Science systems.
 
 \subsection{Related Work}
 
-Spectral bias is well-documented: deep networks fit low-frequency components first\cite{rahaman2019,xu2019,tancik2020,ronen2019}. Classical UQ (Bayesian\cite{kendall2017}, ensembles\cite{lakshminarayanan2017}) asks ``how uncertain?'' not ``how physically dangerous?'' SG differentiation\cite{savitzky1964} amplifies high-frequency noise, but no prior work connects operator frequency response to AI-pipeline reliability auditing. We fill this gap.
+Spectral bias is well-documented: deep networks fit low-frequency components first\cite{rahaman2019,xu2019,tancik2020,ronen2019}. Classical UQ (Bayesian\cite{kendall2017}, ensembles\cite{lakshminarayanan2017}) asks ``how uncertain?'' not ``how physically dangerous?'' Bayesian methods and deep ensembles answer ``how uncertain is the prediction,'' whereas NPRF answers ``how physically dangerous is the residual spectrum under a given physical operator.'' The two are orthogonal and can be used jointly. SG differentiation\cite{savitzky1964} amplifies high-frequency noise, but no prior work connects operator frequency response to AI-pipeline reliability auditing. We fill this gap.
 
 \subsection{Physical-Ground-Truth Sandbox (PGTS)}
 
@@ -241,6 +243,8 @@ where $\Hsqmean = \frac{1}{f_s/2}\int_{0}^{f_s/2} \hsysf \, df$ is the arithmeti
 \label{alg:nprf}
 \end{algorithm}
 
+\textbf{Threshold calibration note:} The NPRF thresholds of 1.5 and 2.0 are initial operating points based on PGTS and have not been calibrated in independent deployment scenarios. They should be treated as screening suggestions rather than safety certifications.
+
 \textbf{Statistical note:} Bootstrap validation ($B=1000$): for $N=1000$, 95\% CI $\approx\pm10\%$. Welch leakage underestimates NPRF for concentrated spectra (zero-predictor: measured 5.731 vs.\ theoretical $\sim10^7$). For $N<200$: screening; $N<100$: concept only. \textbf{Spectral Vaccine} = \{NPRF diagnosis + Spectral-Immunity filter\}. Complexity: $O(N\log N)$, $<1$ ms for $N=10^4$.
 
 % ==================== 3. Experimental Validation ====================
@@ -249,13 +253,15 @@ where $\Hsqmean = \frac{1}{f_s/2}\int_{0}^{f_s/2} \hsysf \, df$ is the arithmeti
 \begingroup
 \scriptsize
 \textbf{Reproducibility:} All experiments use fixed random seeds. Full code in appendix.
+
+\textbf{Operator-scope statement:} This paper uses the 21-point third-order Savitzky--Golay differentiation operator as a representative linear operator for controlled validation. SG is chosen because its frequency response exhibits a pronounced resonant peak and because it is widely used in scientific differentiation. However, the quantitative results of this paper do not claim direct generalizability to all operators. The definition of NPRF itself is operator-agnostic; validation across different operators is left for future work.
 \endgroup
 
 \vspace{0.1pt}
 
 \subsection{Experiment 1: Spectral-Adversarial Examples}
 
-Fix $\pxrmse = 0.001$. Generate power-law noise\cite{kasdin1995} with $\alpha=\{-2, 0, +2\}$, 100 realizations per group.
+Fix $\pxrmse = 0.001$. Generate power-law noise\cite{kasdin1995} with $\alpha=\{-2, 0, +2\}$, 100 realizations per group. These perturbations are used to stress-test the spectral blind spots of the evaluation pipeline, rather than to claim coverage of the full noise distribution of real AI-Scientist systems. Red/white/blue power-law noise provides a controlled contrast between matched and mismatched frequency responses, while resonant-band noise is used to construct a worst-case stress test.
 
 \begin{center}
     \scriptsize\setlength{\tabcolsep}{2.2pt}
@@ -311,7 +317,7 @@ Fix $\pxrmse = 0.001$. Generate power-law noise\cite{kasdin1995} with $\alpha=\{
 
 \subsection{Experiment 2b: NPRF Early-Warning Case Study}
 
-Two denoising models with \textit{identical} pixel RMSE ($\sigma_{\text{px}} = 0.00200$): Model A (low-freq residual, $\alpha=-2$); Model B (resonant-band residual, 55--65 Hz band-pass).
+Two denoising models with \textit{identical} pixel RMSE ($\sigma_{\text{px}} = 0.00200$): Model A (low-freq residual, $\alpha=-2$); Model B (resonant-band residual, 55--65 Hz band-pass). The two models in this experiment are hand-constructed controlled cases, used to demonstrate NPRF's early-warning capability when pixel RMSE is exactly identical, rather than to claim representation of the full range of residual patterns of real trained models.
 
 \begin{center}
     \scriptsize\setlength{\tabcolsep}{3.0pt}
@@ -477,7 +483,7 @@ Frequency bands around resonant peak $f_{\text{peak}}=51$ Hz: sub-resonant (0--4
     \label{fig:fig5}
 \end{figure}
 
-\textbf{Key finding:} A CNN denoiser trained only on white noise exhibits residual spectra strongly dependent on test-noise type. NPRF correctly ranks the physical risk of these residuals, demonstrating that the spectral blind-spot phenomenon is not an artifact of synthetic noise construction but manifests in a real neural network.
+\textbf{Key finding:} A CNN denoiser trained only on white noise exhibits residual spectra strongly dependent on test-noise type. NPRF correctly ranks the physical risk of these residuals, indicating that the spectral blind-spot phenomenon can also manifest in a real neural network (single-architecture proof of concept).
 
 \textbf{Note on multi-seed variance.} Preliminary multi-seed variance analysis (not shown) reveals that NPRF and physical error are highly sensitive to training randomness (NPRF coefficient of variation 30--65\%), while pixel RMSE remains relatively stable (CV 11--35\%). This phenomenon itself further supports the core thesis: standard MSE training does not confer spectral stability, and pixel-level metrics mask this instability. Robust multi-seed validation is left for future work.
 
@@ -486,9 +492,11 @@ Frequency bands around resonant peak $f_{\text{peak}}=51$ Hz: sub-resonant (0--4
 
 \subsection{Limitations}
 
-\textbf{Linear-operator assumption} may break for strongly non-linear operators. \textbf{Calibration dependency:} black-box pipelines require numerical perturbation. \textbf{Statistical power:} Experiment 3 marginal ($p=0.056$, power$\approx0.35$); ablation sufficient ($p=0.000042$). \textbf{Signal-noise overlap:} notch filters attenuate genuine 60 Hz signal. \textbf{Welch leakage:} screening only for $N<200$. \textbf{PGTS-to-real-world gap:} quantitative results inside PGTS only. \textbf{Single-architecture validation:} Exp.~7 validates only one CNN architecture (1D, 4-layer conv); residual spectral characteristics may differ across architectures (Transformer, UNet, etc.). NPRF complements UQ: UQ asks ``how uncertain?'' NPRF asks ``how physically dangerous?''
+\textbf{Linear-operator assumption} may break for strongly non-linear operators. In addition, quantitative validation in this paper is limited to a single SG operator; operators with different frequency-response shapes (first-order difference, Gaussian derivative, FFT differentiation, etc.) may exhibit different NPRF ranking behavior and require independent validation. \textbf{Calibration dependency:} black-box pipelines require numerical perturbation. \textbf{Statistical power:} Experiment 3 marginal ($p=0.056$, power$\approx0.35$); ablation sufficient ($p=0.000042$). \textbf{Signal-noise overlap:} notch filters attenuate genuine 60 Hz signal. \textbf{Welch leakage:} screening only for $N<200$. \textbf{PGTS-to-real-world gap:} quantitative results inside PGTS only. \textbf{Single-architecture validation:} Exp.~7 validates only one CNN architecture (1D, 4-layer conv); residual spectral characteristics may differ across architectures (Transformer, UNet, etc.). NPRF complements UQ: UQ asks ``how uncertain?'' NPRF asks ``how physically dangerous?''
 
 \subsection{Deployment}
+
+The following deployment recommendations are based on the PGTS and single-operator validation scope of this paper. Before actual deployment, the 1.5/2.0 thresholds should be recalibrated under the target operator, target noise conditions, and target physical quantity.
 
 \textbf{(1) Spectral health check for AI-for-Science:} NPRF after every prediction, no costly DFT validation. \textbf{(2) Vision-based tracking:} trigger ``slow-down'' when NPRF$>2.0$. \textbf{(3) Quality-gating:} mark low-confidence when NPRF$>1.5$--$2.0$, no gold-standard annotations required\cite{ardila2019}.
 
@@ -505,12 +513,12 @@ Core contributions: (1) spectral sufficiency theorem (Thm.\ \ref{thm:sufficiency
 
 \begingroup
 \scriptsize
-\textbf{Boundary statement:} Proves: (1) pixel-RMSE structural failure under operator resonance; (2) NPRF feasibility; (3) MSE spectral blind-spots; (4) post-hoc reshaping efficacy in PGTS; (5) NPRF applicability on a real 1D CNN denoiser. Does \textbf{not} prove: (a) NPRF validity for arbitrary non-linear operators; (b) filter generalizability beyond PGTS; (c) training-noise-type significance ($p=0.056$, power$\approx0.35$); (d) NPRF generalizability across neural architectures.
+\textbf{Boundary statement:} Proves: (1) pixel-RMSE structural failure under operator resonance; (2) NPRF feasibility; (3) MSE spectral blind-spots; (4) post-hoc reshaping efficacy in PGTS; (5) NPRF applicability on a real 1D CNN denoiser. Does \textbf{not} prove: (a) NPRF validity for arbitrary non-linear operators; (b) filter generalizability beyond PGTS; (c) training-noise-type significance ($p=0.056$, power$\approx0.35$); (d) NPRF generalizability across neural architectures. The quantitative conclusions of this paper are limited to SG-operator validation within PGTS; generalizability across operators, architectures, and real-world systems remains unproven.
 \endgroup
 
 \vspace{0.3pt}
 
-Every AI Scientist that derives physical quantities from observational data is, knowingly or not, making a bet about the spectral flatness of its residual errors. This paper shows that bet is often lost. The \textbf{Spectral Vaccine}---NPRF diagnosis plus post-hoc Spectral-Immunity filtering---provides the first deployable immune response. The plug-and-play nature of NPRF---no ground truth, minimal overhead, offline calibration---makes it a candidate for infrastructure. \textbf{Future AI-Scientists need not only powerful reasoning, but also an intrinsic immune system---autonomously asking, before every output: is my result physically credible?}
+Every AI Scientist that derives physical quantities from observational data is, knowingly or not, making a bet about the spectral flatness of its residual errors. The controlled experiments in this paper show that this bet is often lost under resonant operators. The \textbf{Spectral Vaccine}---NPRF diagnosis plus post-hoc Spectral-Immunity filtering---provides a deployable prototype of an immune response. The plug-and-play nature of NPRF---no ground truth, minimal overhead, offline calibration---makes it a candidate for infrastructure. \textbf{Future AI-Scientists need not only powerful reasoning, but also an intrinsic immune system---autonomously asking, before every output: is my result physically credible?}
 
 \vspace{0.2pt}
 {\scriptsize\noindent\textbf{Acknowledgements:} We thank Supervisor Wei Teng, head teachers Ms. Minglu Zhang and Mr. Zheng Niu, and grade director Ms. Qian Ren for their support. 
